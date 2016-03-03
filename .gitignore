@@ -10,9 +10,11 @@ sysinfo.txt # Auto generated crash reports.
 *.svd
 *.userprefs
 /*.csproj
+*.csproj
 *.pidb
 *.suo
 /*.sln
+*.sln
 *.user
 *.unityproj
 *.booproj
