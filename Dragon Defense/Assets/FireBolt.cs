@@ -20,6 +20,7 @@ public class FireBolt : ShotClass {
 
 	void OnCollisionEnter2D(Collision2D col){
 		if(col.gameObject.tag == "Ground" && canRoll != true){
+			Instantiate(Resources.Load("FireBoltParticles"), transform.position, Quaternion.identity);
 			GameObject.Destroy(gameObject);
 		} else {
 			//col.gameObject.GetComponent<Enemy>().damageEnemy(damage);
