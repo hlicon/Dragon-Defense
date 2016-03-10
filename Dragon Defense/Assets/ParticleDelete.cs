@@ -4,12 +4,12 @@ using System.Collections;
 public class ParticleDelete : MonoBehaviour {
 
 	void Start(){
-		StartCoroutine(deleteMe());
+		StartCoroutine(DeleteMe());
 	}
 
-	private IEnumerator deleteMe(){
+	private IEnumerator DeleteMe(){
 		yield return new WaitForSeconds(GetComponent<ParticleSystem>().startLifetime);
-		Destroy(gameObject);
+		Destroy(gameObject); //Destroys particle system after all particles are gone
 	}
 
 }
