@@ -5,13 +5,13 @@ public class FireBolt : ShotClass {
 
 	void Start(){
 		this.shotName = "FireBolt";
-		this.damage = 10;
+		this.damage = 10f;
+		this.timeAlive = 2f;
 		this.canRoll = false;
 		this.lobShot = true;
 		this.amountToFire = 3;
 		this.angle = 25;
 		this.power = 5;
-		this.timeAlive = 2;
 		canCollideWithShots = false;
 
 		if(canCollideWithShots != true){
