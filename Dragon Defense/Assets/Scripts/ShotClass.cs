@@ -12,4 +12,8 @@ public class ShotClass : MonoBehaviour {
 	public int amountToFire = 1; //Amount of shots to fire (increased with upgrade system etc)
 	public int angle; //Angle to be shot at
 	public int power; //How fast/far the shot will be
+
+	public void deleteObject(){
+		Destroy(this.gameObject);
+	}
 }

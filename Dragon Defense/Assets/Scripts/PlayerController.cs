@@ -44,13 +44,13 @@ public class PlayerController : MonoBehaviour {
 	}
 		if (Input.GetKeyDown (KeyCode.Space) && canShoot) {
 			StartCoroutine(FireShot(shotSelection, Shots[shotSelection].GetComponent<ShotClass>().amountToFire));
+			canShoot = false;
 			//Fires the selected shot
 		}
 	}
 
 	private IEnumerator FireShot(int currentWeapon, int amountOfShots){
-
-		canShoot = false; //Making it so the player cannot fire again
+	    //Making it so the player cannot fire again
 		GameObject clone = (GameObject)Instantiate(Shots[currentWeapon], shotSpawn.position, shotSpawn.rotation);
 		//Instantiating the weapon
 		ShotClass cloneShotClass = clone.GetComponent<ShotClass>();
