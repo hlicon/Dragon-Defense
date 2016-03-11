@@ -3,7 +3,11 @@ using System.Collections;
 
 public class ParticleDelete : MonoBehaviour {
 
+	ParticleSystem system;
+
 	void Start(){
+		system = GetComponent<ParticleSystem>();
+		system.collision.SetPlane(0, GameObject.FindGameObjectWithTag("Ground").transform);
 		StartCoroutine(DeleteMe());
 	}
 

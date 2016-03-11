@@ -6,12 +6,10 @@ public class FireBolt : ShotClass {
 	void Start(){
 		this.shotName = "FireBolt";
 		this.damage = 10f;
-		this.timeAlive = 2f;
+		this.timeAlive = 5f;
 		this.canRoll = false;
 		this.lobShot = true;
-		this.amountToFire = 3;
-		this.angle = 25;
-		this.power = 5;
+		this.amountToFire = 1;
 		canCollideWithShots = false;
 
 		if(canCollideWithShots != true){
@@ -24,7 +22,7 @@ public class FireBolt : ShotClass {
 		if(timeAlive > 0){
 			timeAlive -= Time.deltaTime;
 		} else if(timeAlive <= 0){ //If the fired shot is alive for longer than timeAlive, we destroy it
-			GameObject.Destroy(gameObject);
+			DeleteObject();
 		}
 	}
 
@@ -32,7 +30,7 @@ public class FireBolt : ShotClass {
 		if(col.gameObject.tag == "Ground" && canRoll != true){ //If we collide with the ground and cannot roll, we destroy the shot
 			Instantiate(Resources.Load("FireBoltParticles"), transform.position, Quaternion.identity);
 			//Instantiate the appropriate particle from resources
-			GameObject.Destroy(gameObject);
+			DeleteObject();
 			//Destroy the firebolt
 		} else {
 			//col.gameObject.GetComponent<Enemy>().damageEnemy(damage);

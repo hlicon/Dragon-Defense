@@ -6,13 +6,15 @@ public class PlayerController : MonoBehaviour {
 	[Header("Player Values")]
 	public float speed; //Speed of the player
 	public Transform shotSpawn; //Spawn point of shots (mouth of dragon)
+	public float angle;
+	public float power;
 
 	[Header("Weapons")]
 	public GameObject[] Shots; //Array of GameObjects (weapons to spawn)
 
 	private Rigidbody2D rb; //Rigidbody component
 	private int shotSelection; //Which shot is currently selected
-	private bool canShoot; //Tells us whether the player can shoot or not
+	private bool canShoot; //Tells us whether the player can shoot or not.
 
 	// Use this for initialization
 	void Start () {
@@ -34,7 +36,7 @@ public class PlayerController : MonoBehaviour {
 
 		rb.AddForce (movement * speed);
 		//Actually moving the player by adding force to the rigidbody component
-
+		GetShotInputs();
 	}
 
 	void Update() {
@@ -43,9 +45,11 @@ public class PlayerController : MonoBehaviour {
 			//Lets the player choose their weapon
 	}
 		if (Input.GetKeyDown (KeyCode.Space) && canShoot) {
-			StartCoroutine(FireShot(shotSelection, Shots[shotSelection].GetComponent<ShotClass>().amountToFire));
 			canShoot = false;
+			StartCoroutine(FireShot(shotSelection, Shots[shotSelection].GetComponent<ShotClass>().amountToFire));
 			//Fires the selected shot
+			if(canShoot != true)
+				StartCoroutine(ShotWait());
 		}
 	}
 
@@ -55,12 +59,13 @@ public class PlayerController : MonoBehaviour {
 		//Instantiating the weapon
 		ShotClass cloneShotClass = clone.GetComponent<ShotClass>();
 		//Getting the Shot Class
-		Vector2 forceArea = new Vector2(shotSpawn.localPosition.x + cloneShotClass.power, shotSpawn.localPosition.y + cloneShotClass.angle/10);
+		Vector2 forceArea = new Vector2(shotSpawn.localPosition.x + power, shotSpawn.localPosition.y + angle/8.5f);
 		//Setting up where the fire the firebolt
 		clone.GetComponent<Rigidbody2D>().AddForce(forceArea, ForceMode2D.Impulse);
 		//Moving the spawned weapon in the forceArea direction
 		if(!cloneShotClass.lobShot) {
 			clone.GetComponent<Rigidbody2D>().gravityScale = 0;
+			clone.GetComponent<Rigidbody2D>().velocity *= 2;
 			//Turning off gravity in order to make it a "straight" shot
 		}
 		yield return new WaitForSeconds(.1f); //Wait's .1 of a second between shots fired
@@ -69,8 +74,28 @@ public class PlayerController : MonoBehaviour {
 			amountOfShots -= 1;
 			StartCoroutine(FireShot(currentWeapon, amountOfShots));
 		}
+	}
 
-		StartCoroutine(ShotWait());
+	private void GetShotInputs(){
+		if(Input.GetKey(KeyCode.UpArrow)){
+			angle += 2f;
+			if(angle >= 45f)
+				angle = 45f;
+		} else if(Input.GetKey(KeyCode.DownArrow)){
+			angle -= 2f;
+			if(angle <= -180f)
+				angle = -180f;
+		}
+		if(Input.GetKey(KeyCode.Z)){
+			power -= .5f;
+			if(power <= 0)
+				power = 0;
+		} else if (Input.GetKey(KeyCode.X)){
+			power += .5f;
+			if(power >= 10)
+				power = 10;
+		}
+
 	}
 
 	private IEnumerator ShotWait(){
