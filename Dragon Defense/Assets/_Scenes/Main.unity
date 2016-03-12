@@ -361,7 +361,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1734236277}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 4, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -378,6 +378,7 @@ GameObject:
   - 50: {fileID: 1956365420}
   - 61: {fileID: 1956365419}
   - 114: {fileID: 1956365418}
+  - 114: {fileID: 1956365423}
   m_Layer: 8
   m_Name: PlayerDragon
   m_TagString: Player
@@ -470,12 +471,26 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1956365417}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.51, y: -1.92, z: -3.7895722}
+  m_LocalPosition: {x: -2.6, y: -0.77, z: -3.7895722}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 962564210}
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &1956365423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1956365417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fef4e0b5113cda046a3022dff95fcf8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shotSpawn: {fileID: 962564210}
+  Shots:
+  - {fileID: 115808, guid: 0f99cb3317d1ce746b4f1e52937abc8d, type: 2}
 --- !u!1 &1971407024
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +565,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 487564, guid: 976989e7cf3d3d846ae7c7a7f533533b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -4.19
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 487564, guid: 976989e7cf3d3d846ae7c7a7f533533b, type: 2}
       propertyPath: m_LocalPosition.z
