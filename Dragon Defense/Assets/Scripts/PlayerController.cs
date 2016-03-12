@@ -26,13 +26,12 @@ public class PlayerController : MonoBehaviour {
 
 	void FixedUpdate () {
 		float moveHorizontal = Input.GetAxis ("Horizontal");
-		float moveVertical = Input.GetAxis ("Vertical");
 		//Getting input
 
-		Vector3 movement = new Vector3 (moveHorizontal, moveVertical, 0.0f);
+		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, 0.0f);
 		//Getting a vector of where to move
 
-		rb.AddForce (movement * speed);
+		rb.velocity = movement * speed;
 		//Actually moving the player by adding force to the rigidbody component
 
 	}
@@ -41,7 +40,7 @@ public class PlayerController : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.Alpha1)){
 			shotSelection = 0;
 			//Lets the player choose their weapon
-	}
+	    }
 		if (Input.GetKeyDown (KeyCode.Space) && canShoot) {
 			StartCoroutine(FireShot(shotSelection, Shots[shotSelection].GetComponent<ShotClass>().amountToFire));
 			//Fires the selected shot
