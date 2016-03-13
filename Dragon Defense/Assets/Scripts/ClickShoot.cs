@@ -5,15 +5,31 @@ public class ClickShoot : MonoBehaviour {
 
 	private Vector2 mouseClickPosition;
 	private bool canShoot;
+	private bool paused;
 	private int selection = 0;
 	private float power;
 	private float angle;
+	private Vector2 shotSpawnPos;
 
 	public Transform shotSpawn;
-	private Vector2 shotSpawnPos;
+
+	[Header("Time Between Shots")]
+	public float shotTimer;
 
 	[Header("Weapons")]
 	public GameObject[] Shots;
+
+	#region Event Subscriptions
+	void OnEnable(){
+		GameStateManager.OnPause += OnPause;
+	}
+	void OnDisable(){
+		GameStateManager.OnPause += OnPause;
+	}
+	void OnDestroy(){
+		GameStateManager.OnPause += OnPause;
+	}
+	#endregion
 
 	void Start(){
 		canShoot = true;
@@ -21,11 +37,19 @@ public class ClickShoot : MonoBehaviour {
 
 		Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Shot")); 
 		//Ignores the shot layer so the player doesn't get pushed around by the shots
-
+		paused = false;
 	}
 
 	void Update(){
-		GetSelection();
+
+		if(!paused){
+			GetSelection();
+			TimerSet();
+			GetMouseInput();
+		}
+	}
+
+	private void GetMouseInput(){
 		if(Input.GetMouseButton(0)){ //Is the mouse button being held down?
 			mouseClickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			//Setting mouse position so we don't have to call >>^^ everytime
@@ -33,6 +57,16 @@ public class ClickShoot : MonoBehaviour {
 				CalculateShot(); //If so, let's "calculate" where we're firing
 			}
 		} 
+	}
+
+	//Removed the ShootWait IEnumerator to this better function
+	private void TimerSet(){
+		if(canShoot == false)
+		shotTimer -= Time.deltaTime;
+		if(shotTimer <= 0f){
+				shotTimer = .5f;
+				canShoot = true;
+		}
 	}
 		
 	private void CalculateShot(){
@@ -64,19 +98,16 @@ public class ClickShoot : MonoBehaviour {
 		if(!cloneShotClass.lobShot){
 			clone.GetComponent<Rigidbody2D>().gravityScale = 0; //Turn gravity off for straight shots
 		}
-
-		StartCoroutine(ShotWait());
-	}
-
-	private IEnumerator ShotWait(){
-		yield return new WaitForSeconds(.5f); //Wait half a second before we can shoot again
-		canShoot = true;
 	}
 
 	private void GetSelection(){ //Setting selection to the selected shot in the Shots array
 		if(Input.GetKeyDown(KeyCode.Alpha1)){
 			selection = 0;
 		}
+	}
+
+	public void OnPause(){
+		paused = !paused;
 	}
 
 }
