@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TestSpawner : MonoBehaviour {
     public float spawnFreq; //used for time between spawns
-    public GameObject knight;
+    public GameObject enemy;
     public Vector2 spawnPos;
 
 	// Use this for initialization
@@ -15,7 +15,7 @@ public class TestSpawner : MonoBehaviour {
     {
         while(true)
         {
-            Instantiate(knight, spawnPos, Quaternion.identity);
+            Instantiate(enemy, spawnPos, Quaternion.identity);
             yield return new WaitForSeconds(spawnFreq);
         }
     }
