@@ -7,6 +7,9 @@ TagManager:
   - Ground
   - Shot
   - Particles
+  - ScreenSpaceCanvas
+  - PausePanel
+  - UI
   layers:
   - Default
   - TransparentFX
@@ -18,7 +21,7 @@ TagManager:
   - 
   - Player
   - Shot
-  - 
+  - Ground
   - 
   - 
   - 

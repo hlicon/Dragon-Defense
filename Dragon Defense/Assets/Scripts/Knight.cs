@@ -11,8 +11,17 @@ public class Knight : EnemyClass {
 	
 	// Update is called once per frame
 	void Update () {
-        Vector3 movement = new Vector3(-moveSpeed, 0, 0);
+        Vector3 movement = new Vector3(-velocity, 0f, 0f);
 
         rb.velocity = movement;
+
+        if(health <= 0) {
+            DeleteObject();
+        }
 	}
+
+    /*void OnCollisionEnter2D(Collision2D other)
+    {
+
+    }*/
 }

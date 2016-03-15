@@ -3,41 +3,60 @@ using System.Collections;
 
 public class FireBolt : ShotClass {
 
+	private Rigidbody2D rigbod;
+	private float gravity;
+
 	void Start(){
-		this.shotName = "FireBolt";
-		this.damage = 10f;
-		this.timeAlive = 2f;
-		this.canRoll = false;
-		this.lobShot = true;
-		this.amountToFire = 3;
-		this.angle = 25;
-		this.power = 5;
+		shotName = "FireBolt";
+		damage = 10f;
+		timeAlive = 5f;
+		canRoll = false;
+		lobShot = true;
+		amountToFire = 1;
 		canCollideWithShots = false;
+		paused = false;
+		wasPaused = false;
 
 		if(canCollideWithShots != true){
 			Physics2D.IgnoreLayerCollision(gameObject.layer, gameObject.layer);
 			//If can collide = false, we ignore the shot layer
 		}
+
+		rigbod = GetComponent<Rigidbody2D>();
+		velocity = rigbod.velocity;
+		gravity = rigbod.gravityScale;
 	}
 
 	void Update(){
-		if(timeAlive > 0){
-			timeAlive -= Time.deltaTime;
-		} else if(timeAlive <= 0){ //If the fired shot is alive for longer than timeAlive, we destroy it
-			GameObject.Destroy(gameObject);
-		}
+		PauseCheck();
 	}
 
 	void OnCollisionEnter2D(Collision2D col){
 		if(col.gameObject.tag == "Ground" && canRoll != true){ //If we collide with the ground and cannot roll, we destroy the shot
 			Instantiate(Resources.Load("FireBoltParticles"), transform.position, Quaternion.identity);
 			//Instantiate the appropriate particle from resources
-			GameObject.Destroy(gameObject);
+			DeleteObject();
 			//Destroy the firebolt
 		} else {
-			//col.gameObject.GetComponent<Enemy>().damageEnemy(damage);
-			
+            Instantiate(Resources.Load("FireBoltParticles"), transform.position, Quaternion.identity);
+            col.gameObject.GetComponent<EnemyClass>().DamageEnemy(damage);
+            DeleteObject();
 		}
 	}
 
+	private void PauseCheck(){
+		if(!paused){
+			if(rigbod.velocity == Vector2.zero && wasPaused){
+				rigbod.velocity = velocity;
+				rigbod.gravityScale = gravity;
+			}
+			velocity = rigbod.velocity;
+			CheckTime();
+		} else {
+			wasPaused = false;
+			rigbod.velocity = Vector2.zero;
+			rigbod.gravityScale = 0;
+		}
+	}
+		
 }

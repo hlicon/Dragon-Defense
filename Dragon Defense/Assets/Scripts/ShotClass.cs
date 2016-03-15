@@ -10,6 +10,38 @@ public class ShotClass : MonoBehaviour {
 	public bool canCollideWithShots; //Can it collide with other shots?
 	public bool lobShot; //Will it lob, or be a straight shot?
 	public int amountToFire = 1; //Amount of shots to fire (increased with upgrade system etc)
-	public int angle; //Angle to be shot at
-	public int power; //How fast/far the shot will be
+	public Vector2 velocity;
+
+	protected bool paused;
+	protected bool wasPaused;
+
+
+	#region Event Subscriptions
+	void OnEnable(){
+		GameStateManager.OnPause += OnPause;
+	}
+	void OnDisable(){
+		GameStateManager.OnPause += OnPause;
+	}
+	void OnDestroy(){
+		GameStateManager.OnPause += OnPause;
+	}
+	#endregion
+
+	public void DeleteObject(){
+		Destroy(this.gameObject);
+	}
+
+	public void OnPause(){
+		paused = !paused;
+		wasPaused = true;
+	}
+
+	protected void CheckTime(){
+		if(timeAlive > 0){
+			timeAlive -= Time.deltaTime;
+		} else if(timeAlive <= 0){ //If the fired shot is alive for longer than timeAlive, we destroy it
+			DeleteObject();
+		}
+	}
 }
