@@ -506,7 +506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnFreq: 5
-  knight: {fileID: 185220, guid: 4ba4519bd8cc4e443a1e2ff43ffc343a, type: 2}
+  enemy: {fileID: 185220, guid: 4ba4519bd8cc4e443a1e2ff43ffc343a, type: 2}
   spawnPos: {x: 16, y: -1.6}
 --- !u!4 &1332989502
 Transform:
