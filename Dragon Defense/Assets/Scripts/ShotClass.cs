@@ -16,18 +16,28 @@ public class ShotClass : MonoBehaviour {
 	protected bool paused;
 	protected bool wasPaused;
 
+	public delegate void DamageEvent(float damage, GameObject col);
+	public static event DamageEvent OnDamage;
+
 
 	#region Event Subscriptions
 	void OnEnable(){
 		GameStateManager.OnPause += OnPause;
 	}
 	void OnDisable(){
-		GameStateManager.OnPause += OnPause;
+		GameStateManager.OnPause -= OnPause;
 	}
 	void OnDestroy(){
-		GameStateManager.OnPause += OnPause;
+		GameStateManager.OnPause -= OnPause;
 	}
 	#endregion
+
+
+	void OnCollisionEnter2D(Collision2D col){
+		OnDamage(damage, col.gameObject);
+		Instantiate(particleToSpawn, transform.position, Quaternion.identity);
+		DeleteObject();
+	}
 
 	public void DeleteObject(){
 		Destroy(this.gameObject);
