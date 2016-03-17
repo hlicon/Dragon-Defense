@@ -13,17 +13,10 @@ public class ParticleDelete : MonoBehaviour {
 		GameStateManager.OnPause += OnPause;
 	}
 	void OnDisable(){
-<<<<<<< HEAD
-		GameStateManager.OnPause += OnPause;
-	}
-	void OnDestroy(){
-		GameStateManager.OnPause += OnPause;
-=======
 		GameStateManager.OnPause -= OnPause;
 	}
 	void OnDestroy(){
 		GameStateManager.OnPause -= OnPause;
->>>>>>> simon
 	}
 	#endregion
 
