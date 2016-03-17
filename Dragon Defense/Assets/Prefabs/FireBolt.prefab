@@ -80,6 +80,8 @@ MonoBehaviour:
   canCollideWithShots: 0
   lobShot: 1
   amountToFire: 1
+  velocity: {x: 0, y: 0}
+  particleToSpawn: {fileID: 128018, guid: 6c9852b685c5115479f2f9a94ba390eb, type: 2}
 --- !u!212 &21231806
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -145,6 +147,10 @@ Prefab:
       propertyPath: canRoll
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: particleToSpawn
+      value: 
+      objectReference: {fileID: 128018, guid: 6c9852b685c5115479f2f9a94ba390eb, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 115808}
