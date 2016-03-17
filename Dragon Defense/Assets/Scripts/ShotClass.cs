@@ -11,6 +11,7 @@ public class ShotClass : MonoBehaviour {
 	public bool lobShot; //Will it lob, or be a straight shot?
 	public int amountToFire = 1; //Amount of shots to fire (increased with upgrade system etc)
 	public Vector2 velocity;
+	public GameObject particleToSpawn;
 
 	protected bool paused;
 	protected bool wasPaused;
