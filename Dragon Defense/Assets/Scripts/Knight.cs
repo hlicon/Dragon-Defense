@@ -4,6 +4,7 @@ using System.Collections;
 public class Knight : EnemyClass {
     private Rigidbody2D rb;
 	private float gravity;
+    public float speed;
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
@@ -15,7 +16,7 @@ public class Knight : EnemyClass {
 	void Update () {
 		Vector2 movement = Vector2.left;
 
-        rb.velocity = movement;
+        rb.velocity = movement * speed;
 
 		PauseCheck();
 	}
