@@ -88,9 +88,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b22732a1a54ab42b63f3df9c0f9729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
+  health: 10
   damage: 0
   velocity: {x: 0, y: 0}
+  points: 10
 --- !u!212 &21281356
 SpriteRenderer:
   m_ObjectHideFlags: 1

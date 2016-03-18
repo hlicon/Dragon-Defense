@@ -3,9 +3,13 @@ using System.Collections;
 
 public class EnemyClass : MonoBehaviour {
 
+    public delegate void DestroyEvent(float points);
+    public static event DestroyEvent OnDestroyEnemy;
+
     public float health;
     public float damage; //Currently unused
 	public Vector2 velocity;
+    public float points;
 
     protected bool paused;
     protected bool wasPaused;
@@ -44,7 +48,10 @@ public class EnemyClass : MonoBehaviour {
 			health -= damage;
 		}
 		if(health <= 0) {
+            if(OnDestroyEnemy != null)
+            OnDestroyEnemy(points);
 			DeleteObject();
+
 		}
     }
 
