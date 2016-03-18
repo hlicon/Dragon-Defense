@@ -34,8 +34,11 @@ public class ShotClass : MonoBehaviour {
 
 
 	void OnCollisionEnter2D(Collision2D col){
-		OnDamage(damage, col.gameObject);
-		Instantiate(particleToSpawn, transform.position, Quaternion.identity);
+		GameObject coll = col.gameObject;
+		OnDamage(damage, coll);
+		ContactPoint2D[] contact = col.contacts;
+		Vector2 particleSpawn = new Vector2(contact[0].point.x, contact[0].point.y + .1f);
+		Instantiate(particleToSpawn, particleSpawn, Quaternion.identity);
 		DeleteObject();
 	}
 

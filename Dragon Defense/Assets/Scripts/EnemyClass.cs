@@ -43,6 +43,9 @@ public class EnemyClass : MonoBehaviour {
 		if(col == this.gameObject){
 			health -= damage;
 		}
+		if(health <= 0) {
+			DeleteObject();
+		}
     }
 
 }

@@ -17,10 +17,6 @@ public class Knight : EnemyClass {
 
         rb.velocity = movement;
 
-        if(health <= 0) {
-            DeleteObject();
-        }
-
 		PauseCheck();
 	}
 
