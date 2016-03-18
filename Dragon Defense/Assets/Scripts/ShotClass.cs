@@ -11,9 +11,13 @@ public class ShotClass : MonoBehaviour {
 	public bool lobShot; //Will it lob, or be a straight shot?
 	public int amountToFire = 1; //Amount of shots to fire (increased with upgrade system etc)
 	public Vector2 velocity;
+	public GameObject particleToSpawn;
 
 	protected bool paused;
 	protected bool wasPaused;
+
+	public delegate void DamageEvent(float damage, GameObject col);
+	public static event DamageEvent OnDamage;
 
 
 	#region Event Subscriptions
@@ -21,12 +25,23 @@ public class ShotClass : MonoBehaviour {
 		GameStateManager.OnPause += OnPause;
 	}
 	void OnDisable(){
-		GameStateManager.OnPause += OnPause;
+		GameStateManager.OnPause -= OnPause;
 	}
 	void OnDestroy(){
-		GameStateManager.OnPause += OnPause;
+		GameStateManager.OnPause -= OnPause;
 	}
 	#endregion
+
+
+	void OnCollisionEnter2D(Collision2D col){
+		GameObject coll = col.gameObject;
+		if(OnDamage != null)
+		OnDamage(damage, coll);
+		ContactPoint2D[] contact = col.contacts;
+		Vector2 particleSpawn = new Vector2(contact[0].point.x, contact[0].point.y + .1f);
+		Instantiate(particleToSpawn, particleSpawn, Quaternion.identity);
+		DeleteObject();
+	}
 
 	public void DeleteObject(){
 		Destroy(this.gameObject);

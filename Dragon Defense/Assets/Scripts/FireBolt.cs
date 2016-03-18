@@ -31,18 +31,6 @@ public class FireBolt : ShotClass {
 		PauseCheck();
 	}
 
-	void OnCollisionEnter2D(Collision2D col){
-		if(col.gameObject.tag == "Ground" && canRoll != true){ //If we collide with the ground and cannot roll, we destroy the shot
-			Instantiate(Resources.Load("FireBoltParticles"), transform.position, Quaternion.identity);
-			//Instantiate the appropriate particle from resources
-			DeleteObject();
-			//Destroy the firebolt
-		} else {
-			//col.gameObject.GetComponent<Enemy>().damageEnemy(damage);
-			
-		}
-	}
-
 	private void PauseCheck(){
 		if(!paused){
 			if(rigbod.velocity == Vector2.zero && wasPaused){

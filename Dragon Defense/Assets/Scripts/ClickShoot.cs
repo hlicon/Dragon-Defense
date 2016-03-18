@@ -24,10 +24,10 @@ public class ClickShoot : MonoBehaviour {
 		GameStateManager.OnPause += OnPause;
 	}
 	void OnDisable(){
-		GameStateManager.OnPause += OnPause;
+		GameStateManager.OnPause -= OnPause;
 	}
 	void OnDestroy(){
-		GameStateManager.OnPause += OnPause;
+		GameStateManager.OnPause -= OnPause;
 	}
 	#endregion
 
