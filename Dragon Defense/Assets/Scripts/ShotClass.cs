@@ -35,6 +35,7 @@ public class ShotClass : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D col){
 		GameObject coll = col.gameObject;
+		if(OnDamage != null)
 		OnDamage(damage, coll);
 		ContactPoint2D[] contact = col.contacts;
 		Vector2 particleSpawn = new Vector2(contact[0].point.x, contact[0].point.y + .1f);
