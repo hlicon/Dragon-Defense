@@ -8,31 +8,6 @@ public class GameStateManager : MonoBehaviour {
 	public static event PauseEvent OnPause;
 
 	public GameObject pausePanel;
-    public GameObject scorePanel;
-
-    private float score;
-
-    public float Score
-    {
-        get { return score; }
-    }
-
-    #region Event Subscriptions
-    void OnEnable()
-    {
-        EnemyClass.OnDestroyEnemy += OnDestroyEnemy;
-    }
-    void OnDisable()
-    {
-        EnemyClass.OnDestroyEnemy -= OnDestroyEnemy;
-
-    }
-    void OnDestroy()
-    {
-        EnemyClass.OnDestroyEnemy -= OnDestroyEnemy;
-
-    }
-    #endregion
 
     public void PauseGame(){
 		if(OnPause != null){
@@ -40,12 +15,5 @@ public class GameStateManager : MonoBehaviour {
 			pausePanel.SetActive(!pausePanel.activeSelf); 
 		}
 	}
-
-
-
-    public void OnDestroyEnemy(float points){
-        score += points;
-        scorePanel.GetComponent<Text>().text = "Score: " + score;
-    }
 
 }
