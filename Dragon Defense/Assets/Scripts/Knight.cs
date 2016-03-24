@@ -4,7 +4,11 @@ using System.Collections;
 public class Knight : EnemyClass {
     private Rigidbody2D rb;
 	private float gravity;
-    public float speed;
+    private float nextAttack = 0.0f;
+
+    public float attackSpeed;
+    public float moveSpeed;
+
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
@@ -16,9 +20,10 @@ public class Knight : EnemyClass {
 	void Update () {
 		Vector2 movement = Vector2.left;
 
-        rb.velocity = movement * speed;
+        rb.velocity = movement * moveSpeed;
 
 		PauseCheck();
+
 	}
 
 	private void PauseCheck(){
@@ -35,8 +40,14 @@ public class Knight : EnemyClass {
 		}
 	}
 
-    /*void OnCollisionEnter2D(Collision2D other)
-    {
-
-    }*/
+    void OnCollisionStay2D(Collision2D other) {
+        if (other.gameObject.GetComponentInParent<PlayerController>() != null &&
+            Time.time > nextAttack)
+        {
+            nextAttack = Time.time + attackSpeed;
+            other.gameObject.GetComponentInParent<PlayerController>().Damage(damage);
+            print("Player took " + damage + " damage.");
+            print("Player currently has " + other.gameObject.GetComponentInParent<PlayerController>().health + " health.");
+        }
+    }
 }

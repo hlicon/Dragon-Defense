@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour {
 
 	[Header("Player Values")]
 	public float speed; //Speed of the player
+    public float health;
 
 	private Rigidbody2D rb; //Rigidbody component
 	private bool paused;
@@ -29,22 +30,31 @@ public class PlayerController : MonoBehaviour {
 
 	void FixedUpdate () {
 		if(!paused){
-		float moveHorizontal = Input.GetAxis ("Horizontal");
-		float moveVertical = Input.GetAxis ("Vertical");
-		//Getting input
+    		float moveHorizontal = Input.GetAxis ("Horizontal");
+	    	float moveVertical = Input.GetAxis ("Vertical");
+		    //Getting input
 
-		Vector3 movement = new Vector3 (moveHorizontal, moveVertical, 0.0f);
-		//Getting a vector of where to move
+    		Vector3 movement = new Vector3 (moveHorizontal, moveVertical, 0.0f);
+	    	//Getting a vector of where to move
 
-		rb.AddForce (movement * speed);
-		//Actually moving the player by adding force to the rigidbody component
+    		rb.AddForce (movement * speed);
+	    	//Actually moving the player by adding force to the rigidbody component
 		}
 	}
 
 	void Update() {
+        if(health <= 0)
+        {
+            Destroy(this.gameObject);
+        }
 	}
 
 	public void OnPause(){
 		paused = !paused;
 	}
+
+    public void Damage(float dmg)
+    {
+        health -= dmg;
+    }
 }

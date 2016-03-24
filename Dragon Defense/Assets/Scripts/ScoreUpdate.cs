@@ -33,6 +33,7 @@ public class ScoreUpdate : MonoBehaviour {
 
 	void Start(){
 		scoreText = scoreObject.GetComponent<Text>();
+        scoreText.text = "Score: " + score;
 	}
 
 
