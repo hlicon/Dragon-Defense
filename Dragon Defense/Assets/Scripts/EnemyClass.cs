@@ -29,8 +29,6 @@ public class EnemyClass : MonoBehaviour {
 	}
 	#endregion
 
-
-
     public void DeleteObject() //Used for deleting the object upon death
     {
         Destroy(this.gameObject);
