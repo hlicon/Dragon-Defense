@@ -9,6 +9,23 @@ public class GameStateManager : MonoBehaviour {
 
 	public GameObject pausePanel;
 
+	#region Event Subscriptions
+	void OnEnable()
+	{
+		PlayerController.OnDestroyPlayer += OnDestroyPlayer;
+	}
+
+	void OnDisable()
+	{
+		PlayerController.OnDestroyPlayer -= OnDestroyPlayer;
+	}
+
+	void OnDestroy()
+	{
+		PlayerController.OnDestroyPlayer -= OnDestroyPlayer;
+	}
+	#endregion
+
 	void Start(){
 		Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Enemy"));
 	}
@@ -20,4 +37,7 @@ public class GameStateManager : MonoBehaviour {
 		}
 	}
 
+	public void OnDestroyPlayer(){
+		//Save highscore, save exp (if we have that), save achievements etc etc
+	}
 }

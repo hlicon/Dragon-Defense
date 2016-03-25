@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-    public delegate void DestroyEvent(float score);
+	public delegate void DestroyEvent();
     public static event DestroyEvent OnDestroyPlayer;
 
     [Header("Player Values")]
@@ -50,9 +50,9 @@ public class PlayerController : MonoBehaviour {
         {
             if(OnDestroyPlayer != null)
             {
-                OnDestroyPlayer(0.0f); //come back to, temporary passed value
+                OnDestroyPlayer();
+				Destroy(this.gameObject);
             }
-            Destroy(this.gameObject);
         }
 	}
 

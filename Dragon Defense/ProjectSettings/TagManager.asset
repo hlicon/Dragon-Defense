@@ -11,6 +11,9 @@ TagManager:
   - PausePanel
   - UI
   - Knight
+  - Ogre
+  - Wizard
+  - Glider
   layers:
   - Default
   - TransparentFX

@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour {
 
     public GameObject gameOverObject;
-    private Text gameOverText;
     private bool gameOver;
 
     #region Event Subscriptions
@@ -26,19 +26,21 @@ public class GameOver : MonoBehaviour {
     #endregion
 
     void Start () {
-        gameOverText = gameOverObject.GetComponent<Text>();
-        gameOverText.text = "";
         gameOver = false;
 	}
 
-    public void OnDestroyPlayer(float score)
+    public void OnDestroyPlayer()
     {
         EndGame();
     }
 
     public void EndGame()
     {
-        gameOverText.text = "You Died";
+		gameOverObject.SetActive(true);
         gameOver = true;
     }
+
+	public void ReplayLevel(){
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+	}
 }

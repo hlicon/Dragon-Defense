@@ -9,20 +9,24 @@ public class TestSpawner : MonoBehaviour
     public Vector2 spawnPos;
     public int rareEnemyChance;
     private bool pause;
+	private bool playerDead;
     private float timer;
 
     #region Event Subscriptions
     void OnEnable()
     {
         GameStateManager.OnPause += OnPause;
+		PlayerController.OnDestroyPlayer += OnDestroyPlayer;
     }
     void OnDisable()
     {
         GameStateManager.OnPause -= OnPause;
+		PlayerController.OnDestroyPlayer -= OnDestroyPlayer;
     }
     void OnDestroy()
     {
         GameStateManager.OnPause -= OnPause;
+		PlayerController.OnDestroyPlayer -= OnDestroyPlayer;
     }
     #endregion
 
@@ -30,13 +34,14 @@ public class TestSpawner : MonoBehaviour
     void Start()
     {
         pause = false;
+		playerDead = false;
         timer = 0;
         Spawn(knight);
     }
 
     void Update()
     {
-        if (!pause)
+		if (!pause && !playerDead)
         {
             timer += Time.deltaTime;
             if(Random.Range(0, rareEnemyChance) == rareEnemyChance - 1) {
@@ -55,6 +60,10 @@ public class TestSpawner : MonoBehaviour
             timer = 0;
         }
     }
+
+	public void OnDestroyPlayer(){
+		playerDead = true;
+	}
 
     public void OnPause()
     {
