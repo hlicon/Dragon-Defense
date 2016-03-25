@@ -132,6 +132,18 @@ Prefab:
       propertyPath: spawnFreq
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 11407106, guid: e8e2708389101394db5e37c10231b658, type: 2}
+      propertyPath: knight
+      value: 
+      objectReference: {fileID: 185220, guid: 4ba4519bd8cc4e443a1e2ff43ffc343a, type: 2}
+    - target: {fileID: 11407106, guid: e8e2708389101394db5e37c10231b658, type: 2}
+      propertyPath: ogre
+      value: 
+      objectReference: {fileID: 154514, guid: e7464fb545e75bd4bb8b225d3828256f, type: 2}
+    - target: {fileID: 11407106, guid: e8e2708389101394db5e37c10231b658, type: 2}
+      propertyPath: rareEnemyChance
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e8e2708389101394db5e37c10231b658, type: 2}
   m_IsPrefabParent: 0
@@ -467,6 +479,7 @@ GameObject:
   - 224: {fileID: 959672482}
   - 114: {fileID: 959672481}
   - 114: {fileID: 959672483}
+  - 114: {fileID: 959672484}
   m_Layer: 5
   m_Name: GameManager
   m_TagString: GameController
@@ -515,6 +528,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreObject: {fileID: 503294099}
+--- !u!114 &959672484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 959672480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a0da2407d32ed343ae90f0455ce7355, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOverObject: {fileID: 1238434701}
 --- !u!1 &962564209
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,6 +575,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 1238434702}
+  - 222: {fileID: 1238434704}
   - 114: {fileID: 1238434703}
   m_Layer: 5
   m_Name: Text - Game Over
@@ -583,10 +609,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 1238434701}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a87a3244988ea45439bfd5722add0f6b, type: 3}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverObject: {fileID: 0}
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Game Over Text
+--- !u!222 &1238434704
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1238434701}
 --- !u!1 &1617537033
 GameObject:
   m_ObjectHideFlags: 0

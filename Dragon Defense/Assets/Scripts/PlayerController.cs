@@ -3,7 +3,10 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-	[Header("Player Values")]
+    public delegate void DestroyEvent(float score);
+    public static event DestroyEvent OnDestroyPlayer;
+
+    [Header("Player Values")]
 	public float speed; //Speed of the player
     public float health;
 
@@ -45,11 +48,15 @@ public class PlayerController : MonoBehaviour {
 	void Update() {
         if(health <= 0)
         {
+            if(OnDestroyPlayer != null)
+            {
+                OnDestroyPlayer(0.0f); //come back to, temporary passed value
+            }
             Destroy(this.gameObject);
         }
 	}
 
-	public void OnPause(){
+    public void OnPause(){
 		paused = !paused;
 	}
 

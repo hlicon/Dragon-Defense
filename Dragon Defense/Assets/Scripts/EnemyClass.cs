@@ -6,10 +6,11 @@ public class EnemyClass : MonoBehaviour {
     public delegate void DestroyEvent(float points);
     public static event DestroyEvent OnDestroyEnemy;
 
-    public float health;
+    [SerializeField] protected float health;
     public float damage; //Currently unused
 	public Vector2 velocity;
     public float points;
+    public bool isMelee;
 
     protected bool paused;
     protected bool wasPaused;
@@ -47,7 +48,7 @@ public class EnemyClass : MonoBehaviour {
 		}
 		if(health <= 0) {
             if(OnDestroyEnemy != null)
-            OnDestroyEnemy(points);
+                OnDestroyEnemy(points);
 			DeleteObject();
 
 		}
