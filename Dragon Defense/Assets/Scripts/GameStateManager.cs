@@ -38,6 +38,6 @@ public class GameStateManager : MonoBehaviour {
 	}
 
 	public void OnDestroyPlayer(){
-		//Save highscore, save exp (if we have that), save achievements etc etc
+		//Save high score, save exp (if we have that), save achievements etc etc
 	}
 }

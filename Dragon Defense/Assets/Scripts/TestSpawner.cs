@@ -8,9 +8,12 @@ public class TestSpawner : MonoBehaviour
     public GameObject ogre;
     public Vector2 spawnPos;
     public int rareEnemyChance;
+    public static int waveSize;
     private bool pause;
 	private bool playerDead;
     private float timer;
+    private int pop;
+    
 
     #region Event Subscriptions
     void OnEnable()
@@ -36,12 +39,13 @@ public class TestSpawner : MonoBehaviour
         pause = false;
 		playerDead = false;
         timer = 0;
-        Spawn(knight);
+        pop = 0;
+        waveSize = 1;
     }
 
     void Update()
     {
-		if (!pause && !playerDead)
+		if (!pause && !playerDead && pop < waveSize)
         {
             timer += Time.deltaTime;
             if(Random.Range(0, rareEnemyChance) == rareEnemyChance - 1) {
@@ -58,6 +62,7 @@ public class TestSpawner : MonoBehaviour
         {
             Instantiate(enemy, spawnPos, Quaternion.identity);
             timer = 0;
+            pop++;
         }
     }
 

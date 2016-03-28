@@ -8,6 +8,11 @@ public class ScoreUpdate : MonoBehaviour {
 	public GameObject scoreObject;
 	private Text scoreText;
 
+    private static int enemiesKilled;
+    public static int EnemiesKilled
+    {
+        get { return enemiesKilled; }
+    }
 	private static float score;
 	public static float Score
 	{
@@ -39,6 +44,7 @@ public class ScoreUpdate : MonoBehaviour {
 
 	public void OnDestroyEnemy(float points){
 		score += points;
+        enemiesKilled++;
 		scoreText.text = "Score: " + score ;
 	}
 }

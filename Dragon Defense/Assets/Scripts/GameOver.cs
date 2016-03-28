@@ -31,16 +31,31 @@ public class GameOver : MonoBehaviour {
 
     public void OnDestroyPlayer()
     {
-        EndGame();
+        EndGameDeath();
     }
 
-    public void EndGame()
+    public void EndGameDeath()
     {
 		gameOverObject.SetActive(true);
+        gameOver = true;
+    }
+
+    public void EndGameVictory()
+    {
+        gameOverObject.GetComponentInChildren<Text>().text = "You win!";
+        gameOverObject.SetActive(true);
         gameOver = true;
     }
 
 	public void ReplayLevel(){
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
+
+    void Update()
+    {
+        if(ScoreUpdate.EnemiesKilled >= TestSpawner.waveSize)
+        {
+            EndGameVictory();
+        }
+    }
 }
