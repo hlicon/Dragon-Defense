@@ -36,6 +36,11 @@ public class ScoreUpdate : MonoBehaviour {
 	}
 	#endregion
 
+	void OnLevelWasLoaded(){
+		enemiesKilled = 0;
+		score = 0;
+	}
+
 	void Start(){
 		scoreText = scoreObject.GetComponent<Text>();
         scoreText.text = "Score: " + score;

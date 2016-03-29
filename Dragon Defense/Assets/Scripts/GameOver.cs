@@ -6,22 +6,26 @@ using UnityEngine.SceneManagement;
 public class GameOver : MonoBehaviour {
 
     public GameObject gameOverObject;
+	public GameObject gameWinObject;
     private bool gameOver;
 
     #region Event Subscriptions
     void OnEnable()
     {
         PlayerController.OnDestroyPlayer += OnDestroyPlayer;
+		EnemyClass.OnDestroyEnemy += OnDestroyEnemy;
     }
 
     void OnDisable()
     {
         PlayerController.OnDestroyPlayer -= OnDestroyPlayer;
+		EnemyClass.OnDestroyEnemy -= OnDestroyEnemy;
     }
 
     void OnDestroy()
     {
         PlayerController.OnDestroyPlayer -= OnDestroyPlayer;
+		EnemyClass.OnDestroyEnemy -= OnDestroyEnemy;
     }
     #endregion
 
@@ -42,8 +46,7 @@ public class GameOver : MonoBehaviour {
 
     public void EndGameVictory()
     {
-        gameOverObject.GetComponentInChildren<Text>().text = "You win!";
-        gameOverObject.SetActive(true);
+		gameWinObject.SetActive(true);
         gameOver = true;
     }
 
@@ -51,11 +54,9 @@ public class GameOver : MonoBehaviour {
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
-    void Update()
-    {
-        if(ScoreUpdate.EnemiesKilled >= TestSpawner.waveSize)
-        {
-            EndGameVictory();
-        }
-    }
+	public void OnDestroyEnemy(float dam){
+		if(ScoreUpdate.EnemiesKilled >= TestSpawner.waveSize){
+			EndGameVictory();
+		}
+	}
 }
