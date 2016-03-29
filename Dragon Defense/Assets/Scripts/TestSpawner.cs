@@ -8,11 +8,22 @@ public class TestSpawner : MonoBehaviour
     public GameObject ogre;
     public Vector2 spawnPos;
     public int rareEnemyChance;
-    public int waveSize;
+    public int numWaves;
+    public int waveIncrement;
     private bool pause;
 	private bool playerDead;
     private float timer;
     private int pop;
+    private int currentWave;
+    public int CurrentWave
+    {
+        get { return currentWave; }
+    }
+    private int currentWaveSize;
+    public int CurrentWaveSize
+    {
+        get { return currentWaveSize; }
+    }
     
 
     #region Event Subscriptions
@@ -40,11 +51,13 @@ public class TestSpawner : MonoBehaviour
 		playerDead = false;
         timer = 0;
         pop = 0;
+        currentWave = 0;
+        currentWaveSize = waveIncrement;
     }
 
     void Update()
     {
-		if (!pause && !playerDead && pop < waveSize)
+		if (!pause && !playerDead && pop < currentWaveSize)
         {
             timer += Time.deltaTime;
             if(Random.Range(0, rareEnemyChance) == rareEnemyChance - 1) {
@@ -63,6 +76,12 @@ public class TestSpawner : MonoBehaviour
             timer = 0;
             pop++;
         }
+    }
+
+    public void NextWave()
+    {
+        currentWave++;
+        currentWaveSize += waveIncrement;
     }
 
 	public void OnDestroyPlayer(){
