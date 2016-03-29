@@ -7,6 +7,7 @@ public class GameOver : MonoBehaviour {
 
     public GameObject gameOverObject;
 	public GameObject gameWinObject;
+    private TestSpawner testSpawner;
     private bool gameOver;
 
     #region Event Subscriptions
@@ -31,6 +32,7 @@ public class GameOver : MonoBehaviour {
 
     void Start () {
         gameOver = false;
+        testSpawner = GameObject.FindGameObjectWithTag("Respawn").GetComponentInParent<TestSpawner>();
 	}
 
     public void OnDestroyPlayer()
@@ -55,7 +57,7 @@ public class GameOver : MonoBehaviour {
 	}
 
 	public void OnDestroyEnemy(float dam){
-		if(ScoreUpdate.EnemiesKilled >= TestSpawner.waveSize){
+		if(ScoreUpdate.EnemiesKilled >= testSpawner.waveSize) {
 			EndGameVictory();
 		}
 	}

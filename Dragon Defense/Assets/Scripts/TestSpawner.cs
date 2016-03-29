@@ -8,7 +8,7 @@ public class TestSpawner : MonoBehaviour
     public GameObject ogre;
     public Vector2 spawnPos;
     public int rareEnemyChance;
-    public static int waveSize;
+    public int waveSize;
     private bool pause;
 	private bool playerDead;
     private float timer;
@@ -40,7 +40,6 @@ public class TestSpawner : MonoBehaviour
 		playerDead = false;
         timer = 0;
         pop = 0;
-        waveSize = 1;
     }
 
     void Update()
