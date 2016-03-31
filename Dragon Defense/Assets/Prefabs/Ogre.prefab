@@ -92,7 +92,7 @@ MonoBehaviour:
   damage: 10
   velocity: {x: 0, y: 0}
   points: 10
-  isMelee: 0
+  isMelee: 1
   attackSpeed: 1
   moveSpeed: 2
 --- !u!212 &21284274
