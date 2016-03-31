@@ -7,7 +7,7 @@ public class EnemyClass : MonoBehaviour {
     public static event DestroyEvent OnDestroyEnemy;
 
     [SerializeField] protected float health;
-    public float damage; //Currently unused
+    public float damage; 
 	public Vector2 velocity;
     public float points;
     public bool isMelee;
@@ -35,7 +35,7 @@ public class EnemyClass : MonoBehaviour {
         Destroy(this.gameObject);
     }
 
-    public void OnPause() //Currently nonfunctional for enemies
+    public void OnPause() 
     {
         paused = !paused;
         wasPaused = true;

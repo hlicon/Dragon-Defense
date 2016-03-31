@@ -12,7 +12,6 @@ public class FireBolt : ShotClass {
 		timeAlive = 5f;
 		canRoll = false;
 		lobShot = true;
-		amountToFire = 1;
 		canCollideWithShots = false;
 		paused = false;
 		wasPaused = false;

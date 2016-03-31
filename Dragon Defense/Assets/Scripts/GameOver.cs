@@ -57,8 +57,8 @@ public class GameOver : MonoBehaviour {
 	}
 
 	public void OnDestroyEnemy(float dam){
-		if(ScoreUpdate.EnemiesKilled >= testSpawner.CurrentWaveSize) {
-            if (testSpawner.CurrentWave >= testSpawner.numWaves - 1)
+		if(ScoreUpdate.WaveEnemiesKilled >= testSpawner.CurrentWaveSize) {
+            if (testSpawner.CurrentWave >= testSpawner.numWaves)
             {
                 EndGameVictory();
             } else

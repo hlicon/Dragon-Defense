@@ -160,6 +160,10 @@ Prefab:
       propertyPath: waveIncrement
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 11407106, guid: e8e2708389101394db5e37c10231b658, type: 2}
+      propertyPath: initialWaveSize
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e8e2708389101394db5e37c10231b658, type: 2}
   m_IsPrefabParent: 0

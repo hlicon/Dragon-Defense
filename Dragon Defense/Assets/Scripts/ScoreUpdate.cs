@@ -8,10 +8,15 @@ public class ScoreUpdate : MonoBehaviour {
 	public GameObject scoreObject;
 	private Text scoreText;
 
-    private static int enemiesKilled;
-    public static int EnemiesKilled
+    private static int totalEnemiesKilled;
+    public static int TotalEnemiesKilled
     {
-        get { return enemiesKilled; }
+        get { return totalEnemiesKilled; }
+    }
+    private static int waveEnemiesKilled;
+    public static int WaveEnemiesKilled
+    {
+        get { return waveEnemiesKilled; }
     }
 	private static float score;
 	public static float Score
@@ -22,22 +27,25 @@ public class ScoreUpdate : MonoBehaviour {
 	#region Event Subscriptions
 	void OnEnable()
 	{
+        TestSpawner.OnNextWave += OnNextWave;
 		EnemyClass.OnDestroyEnemy += OnDestroyEnemy;
 	}
 	void OnDisable()
 	{
-		EnemyClass.OnDestroyEnemy -= OnDestroyEnemy;
+        TestSpawner.OnNextWave -= OnNextWave;
+        EnemyClass.OnDestroyEnemy -= OnDestroyEnemy;
 
 	}
 	void OnDestroy()
 	{
-		EnemyClass.OnDestroyEnemy -= OnDestroyEnemy;
-
+        TestSpawner.OnNextWave -= OnNextWave;
+        EnemyClass.OnDestroyEnemy -= OnDestroyEnemy;
 	}
 	#endregion
 
 	void OnLevelWasLoaded(){
-		enemiesKilled = 0;
+        totalEnemiesKilled = 0; //maybe not? we'll see
+		waveEnemiesKilled = 0;
 		score = 0;
 	}
 
@@ -49,7 +57,13 @@ public class ScoreUpdate : MonoBehaviour {
 
 	public void OnDestroyEnemy(float points){
 		score += points;
-        enemiesKilled++;
+        waveEnemiesKilled++;
+        totalEnemiesKilled++;
 		scoreText.text = "Score: " + score ;
 	}
+
+    public void OnNextWave()
+    {
+        waveEnemiesKilled = 0;
+    }
 }

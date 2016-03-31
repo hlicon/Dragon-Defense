@@ -14,6 +14,7 @@ TagManager:
   - Ogre
   - Wizard
   - Glider
+  - WaveTimer
   layers:
   - Default
   - TransparentFX

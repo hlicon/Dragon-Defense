@@ -3,13 +3,16 @@ using System.Collections;
 
 public class TestSpawner : MonoBehaviour
 {
+    public delegate void Event();
+    public static event Event OnNextWave;
+
     public float spawnFreq; //used for time between spawns
     public GameObject knight;
     public GameObject ogre;
     public Vector2 spawnPos;
     public int rareEnemyChance;
     public int numWaves;
-    public int waveIncrement;
+    public int initialWaveSize;
     private bool pause;
 	private bool playerDead;
     private float timer;
@@ -51,8 +54,8 @@ public class TestSpawner : MonoBehaviour
 		playerDead = false;
         timer = 0;
         pop = 0;
-        currentWave = 0;
-        currentWaveSize = waveIncrement;
+        currentWave = 1;
+        currentWaveSize = initialWaveSize;
     }
 
     void Update()
@@ -81,7 +84,11 @@ public class TestSpawner : MonoBehaviour
     public void NextWave()
     {
         currentWave++;
-        currentWaveSize += waveIncrement;
+        currentWaveSize *= 2;
+        pop = 0;
+        print("Wave " + currentWave + " of " + numWaves + " starting!");
+        if (OnNextWave != null)
+            OnNextWave();
     }
 
 	public void OnDestroyPlayer(){
