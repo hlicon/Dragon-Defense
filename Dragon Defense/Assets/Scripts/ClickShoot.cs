@@ -19,6 +19,9 @@ public class ClickShoot : MonoBehaviour {
 	[Header("Weapons")]
 	public GameObject[] Shots;
 
+	public delegate void SelectionEvent(int selection);
+	public static event SelectionEvent OnSelectionChanged;
+
 	#region Event Subscriptions
 	void OnEnable(){
 		GameStateManager.OnPause += OnPause;
@@ -43,7 +46,7 @@ public class ClickShoot : MonoBehaviour {
 	void Update(){
 
 		if(!paused){
-			GetSelection();
+			GetSelection(selection);
 			TimerSet();
 			GetMouseInput();
 		}
@@ -53,7 +56,7 @@ public class ClickShoot : MonoBehaviour {
 		if(Input.GetMouseButton(0)){ //Is the mouse button being held down?
 			mouseClickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			//Setting mouse position so we don't have to call >>^^ everytime
-			if(canShoot && selection >= 0){ //Do we have a proper selection and can we shoot?
+			if(canShoot && selection >= 0 && mouseClickPosition.y >= -2.0f){ //Do we have a proper selection and can we shoot?
 				CalculateShot(); //If so, let's "calculate" where we're firing
 			}
 		} 
@@ -100,10 +103,17 @@ public class ClickShoot : MonoBehaviour {
 		}
 	}
 
-	private void GetSelection(){ //Setting selection to the selected shot in the Shots array
+	public void GetSelection(int newSelection){ //Setting selection to the selected shot in the Shots array
+		if(selection != newSelection){
+			selection = newSelection;
+		}
+
 		if(Input.GetKeyDown(KeyCode.Alpha1)){
 			selection = 0;
+		} else if(Input.GetKeyDown(KeyCode.Alpha2)){
+			selection = 1;
 		}
+		OnSelectionChanged(selection);
 	}
 
 	public void OnPause(){

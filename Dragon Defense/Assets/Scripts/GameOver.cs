@@ -9,6 +9,7 @@ public class GameOver : MonoBehaviour {
 	public GameObject gameWinObject;
     private TestSpawner testSpawner;
     private bool gameOver;
+	private GameStateManager gameStateManager;
 
     #region Event Subscriptions
     void OnEnable()
@@ -33,6 +34,7 @@ public class GameOver : MonoBehaviour {
     void Start () {
         gameOver = false;
         testSpawner = GameObject.FindGameObjectWithTag("Respawn").GetComponentInParent<TestSpawner>();
+		//gameStateManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameStateManager>();
 	}
 
     public void OnDestroyPlayer()
@@ -44,12 +46,14 @@ public class GameOver : MonoBehaviour {
     {
 		gameOverObject.SetActive(true);
         gameOver = true;
+		GameStateManager.PauseGameEnd();
     }
 
     public void EndGameVictory()
     {
 		gameWinObject.SetActive(true);
         gameOver = true;
+		GameStateManager.PauseGameEnd();
     }
 
 	public void ReplayLevel(){

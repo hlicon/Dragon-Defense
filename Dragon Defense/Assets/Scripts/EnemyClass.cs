@@ -41,10 +41,11 @@ public class EnemyClass : MonoBehaviour {
         wasPaused = true;
     }
 
-	public void OnDamage(float damage, GameObject col) //Used for taking damage
+	public void OnDamage(float damageDealt, GameObject col) //Used for taking damage
     {
 		if(col == this.gameObject){
-			health -= damage;
+			health -= damageDealt;
+			SpawnDamageText(damageDealt);
 		}
 		if(health <= 0) {
             if(OnDestroyEnemy != null)
@@ -53,5 +54,16 @@ public class EnemyClass : MonoBehaviour {
 
 		}
     }
+
+	private void SpawnDamageText(float damageDealt){
+		Vector2 damageTextSpawn = transform.position;
+		damageTextSpawn.y += GetComponent<SpriteRenderer>().sprite.bounds.size.y/2;
+		damageTextSpawn = Camera.main.WorldToScreenPoint(damageTextSpawn);
+		GameObject clone = (GameObject)Instantiate(Resources.Load("DamageText"), damageTextSpawn, Quaternion.identity);
+		clone.transform.SetParent(GameObject.FindGameObjectWithTag("ScreenSpaceCanvas").transform); 
+		clone.transform.SetAsFirstSibling();
+		clone.GetComponent<DamageTextMove>().damageDealt = damageDealt;
+		print(damageDealt);
+	}
 
 }

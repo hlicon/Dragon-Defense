@@ -37,6 +37,12 @@ public class GameStateManager : MonoBehaviour {
 		}
 	}
 
+	public static void PauseGameEnd(){
+		if(OnPause != null){
+			OnPause();
+		}
+	}
+
 	public void OnDestroyPlayer(){
 		//Save high score, save exp (if we have that), save achievements etc etc
 	}
