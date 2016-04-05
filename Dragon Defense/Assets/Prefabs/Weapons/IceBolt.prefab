@@ -82,6 +82,7 @@ MonoBehaviour:
   amountToFire: 1
   velocity: {x: 0, y: 0}
   particleToSpawn: {fileID: 174422, guid: a1fa2297cee86f940bcf04b2a22d54f7, type: 2}
+  weaponColorNumber: 1
 --- !u!212 &21201940
 SpriteRenderer:
   m_ObjectHideFlags: 1

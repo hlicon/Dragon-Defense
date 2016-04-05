@@ -25,12 +25,15 @@ public class ClickShoot : MonoBehaviour {
 	#region Event Subscriptions
 	void OnEnable(){
 		GameStateManager.OnPause += OnPause;
+		GameStateManager.OnRoundWin += OnRoundWin;
 	}
 	void OnDisable(){
 		GameStateManager.OnPause -= OnPause;
+		GameStateManager.OnRoundWin -= OnRoundWin;
 	}
 	void OnDestroy(){
 		GameStateManager.OnPause -= OnPause;
+		GameStateManager.OnRoundWin -= OnRoundWin;
 	}
 	#endregion
 
@@ -114,6 +117,10 @@ public class ClickShoot : MonoBehaviour {
 			selection = 1;
 		}
 		OnSelectionChanged(selection);
+	}
+
+	public void OnRoundWin(){
+		paused = !paused;
 	}
 
 	public void OnPause(){

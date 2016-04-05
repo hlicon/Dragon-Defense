@@ -8,8 +8,8 @@ public class GameOver : MonoBehaviour {
     public GameObject gameOverObject;
 	public GameObject gameWinObject;
     private TestSpawner testSpawner;
-    private bool gameOver;
 	private GameStateManager gameStateManager;
+	private bool gameOver;
 
     #region Event Subscriptions
     void OnEnable()

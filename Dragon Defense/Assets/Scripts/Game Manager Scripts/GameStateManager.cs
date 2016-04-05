@@ -6,6 +6,7 @@ public class GameStateManager : MonoBehaviour {
 
 	public delegate void PauseEvent();
 	public static event PauseEvent OnPause;
+	public static event PauseEvent OnRoundWin;
 
 	public GameObject pausePanel;
 
@@ -38,8 +39,8 @@ public class GameStateManager : MonoBehaviour {
 	}
 
 	public static void PauseGameEnd(){
-		if(OnPause != null){
-			OnPause();
+		if(OnRoundWin != null){
+			OnRoundWin();
 		}
 	}
 

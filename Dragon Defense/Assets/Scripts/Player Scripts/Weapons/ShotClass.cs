@@ -12,11 +12,12 @@ public class ShotClass : MonoBehaviour {
 	public int amountToFire = 1; //Amount of shots to fire (increased with upgrade system etc)
 	public Vector2 velocity;
 	public GameObject particleToSpawn;
+	public int weaponColorNumber;
 
 	protected bool paused;
 	protected bool wasPaused;
 
-	public delegate void DamageEvent(float damage, GameObject col);
+	public delegate void DamageEvent(float damage, GameObject col, int weaponNumber, Vector3 shotPosition);
 	public static event DamageEvent OnDamage;
 
 
@@ -37,7 +38,7 @@ public class ShotClass : MonoBehaviour {
 		GameObject coll = col.gameObject;
 
         if (OnDamage != null) {
-            OnDamage(damage, coll);
+			OnDamage(damage, coll, weaponColorNumber, transform.position);
         }
 	
 		Instantiate(particleToSpawn, transform.position, Quaternion.identity);

@@ -41,29 +41,40 @@ public class EnemyClass : MonoBehaviour {
         wasPaused = true;
     }
 
-	public void OnDamage(float damageDealt, GameObject col) //Used for taking damage
+	public void OnDamage(float damageDealt, GameObject col, int weaponNumber, Vector3 shotPosition) //Used for taking damage
     {
 		if(col == this.gameObject){
 			health -= damageDealt;
-			SpawnDamageText(damageDealt);
+			SpawnDamageText(damageDealt, col, weaponNumber, shotPosition);
 		}
 		if(health <= 0) {
             if(OnDestroyEnemy != null)
                 OnDestroyEnemy(points);
+			SpawnPointText(points);
 			DeleteObject();
 
 		}
     }
 
-	private void SpawnDamageText(float damageDealt){
-		Vector2 damageTextSpawn = transform.position;
-		damageTextSpawn.y += GetComponent<SpriteRenderer>().sprite.bounds.size.y/2;
+	private void SpawnPointText(float pointValue){
+		Vector2 pointTextSpawn = transform.position;
+		pointTextSpawn.y += GetComponent<SpriteRenderer>().sprite.bounds.size.y/2;
+		pointTextSpawn = Camera.main.WorldToScreenPoint(pointTextSpawn);
+		GameObject clone = (GameObject)Instantiate(Resources.Load("PointText"), pointTextSpawn, Quaternion.identity);
+		clone.transform.SetParent(GameObject.FindGameObjectWithTag("ScreenSpaceCanvas").transform);
+		clone.transform.SetAsFirstSibling();
+		clone.GetComponent<PointTextMove>().pointDisplay = pointValue;
+	}
+
+	private void SpawnDamageText(float damageDealt, GameObject col, int weaponNumber, Vector3 shotPosition){
+		Vector2 damageTextSpawn = shotPosition;
+		//damageTextSpawn.y += GetComponent<SpriteRenderer>().sprite.bounds.size.y/2;
 		damageTextSpawn = Camera.main.WorldToScreenPoint(damageTextSpawn);
 		GameObject clone = (GameObject)Instantiate(Resources.Load("DamageText"), damageTextSpawn, Quaternion.identity);
 		clone.transform.SetParent(GameObject.FindGameObjectWithTag("ScreenSpaceCanvas").transform); 
 		clone.transform.SetAsFirstSibling();
+		clone.GetComponent<DamageTextMove>().colorNumber = weaponNumber;
 		clone.GetComponent<DamageTextMove>().damageDealt = damageDealt;
-		print(damageDealt);
 	}
 
 }

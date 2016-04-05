@@ -16,12 +16,15 @@ public class PlayerController : MonoBehaviour {
 	#region Event Subscriptions
 	void OnEnable(){
 		GameStateManager.OnPause += OnPause;
+		GameStateManager.OnRoundWin += OnRoundWin;
 	}
 	void OnDisable(){
-		GameStateManager.OnPause -= OnPause;	
+		GameStateManager.OnPause -= OnPause;
+		GameStateManager.OnRoundWin -= OnRoundWin;
 	}
 	void OnDestroy(){
 		GameStateManager.OnPause -= OnPause;
+		GameStateManager.OnRoundWin -= OnRoundWin;
 	}
 	#endregion
 
@@ -54,6 +57,10 @@ public class PlayerController : MonoBehaviour {
 				Destroy(this.gameObject);
             }
         }
+	}
+
+	public void OnRoundWin(){
+		paused = !paused;
 	}
 
     public void OnPause(){
