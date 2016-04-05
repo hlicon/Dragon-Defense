@@ -10,12 +10,10 @@ public class PointTextMove : MonoBehaviour {
 	private Vector3 movePosition;
 	private float timedDestroy;
 
-	private Text textComp;
 	private Text text;
 
 	void Start(){
 		movePosition = transform.position;
-		textComp = this.GetComponent<Text>();
 		text = GetComponent<Text>();
 		text.text = "+ " + pointDisplay;
 	}
