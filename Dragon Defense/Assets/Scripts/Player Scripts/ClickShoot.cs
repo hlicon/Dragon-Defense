@@ -47,7 +47,6 @@ public class ClickShoot : MonoBehaviour {
 	}
 
 	void Update(){
-
 		if(!paused){
 			GetSelection(selection);
 			TimerSet();

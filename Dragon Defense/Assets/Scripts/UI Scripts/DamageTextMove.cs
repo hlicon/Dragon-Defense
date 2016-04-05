@@ -7,11 +7,11 @@ public class DamageTextMove : MonoBehaviour {
 	public Color[] colors;
 	public float damageDealt;
 	[HideInInspector]
-	public int colorNumber;
+	public int colorNumber = 0;
 	private Vector2 movePosition;
 	private Vector3 rotation;
 	private float moveUpAmount = 1.5f;
-	private float moveLeftRightAmount = Random.value + Random.value;
+	private float moveLeftRightAmount;
 	private float rotateAmount;
 	private Text text;
 	private float timedDestroy = 0;
@@ -39,6 +39,7 @@ public class DamageTextMove : MonoBehaviour {
 		randXMove = Random.Range(0, 2);
 		randZRotate = Random.Range(0, 2);
 		rotateAmount = Random.Range(5f, 7.5f) + Random.value;
+		moveLeftRightAmount += Random.value + Random.value;
 	}
 
 	void FixedUpdate(){
