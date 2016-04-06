@@ -34,6 +34,7 @@ public class FireBolt : ShotClass {
 			if(rigbod.velocity == Vector2.zero && wasPaused){
 				rigbod.velocity = velocity;
 				rigbod.gravityScale = gravity;
+				trailParticles.Play();
 			}
 			velocity = rigbod.velocity;
 			CheckTime();
@@ -41,6 +42,7 @@ public class FireBolt : ShotClass {
 			wasPaused = false;
 			rigbod.velocity = Vector2.zero;
 			rigbod.gravityScale = 0;
+			trailParticles.Pause();
 		}
 	}
 		

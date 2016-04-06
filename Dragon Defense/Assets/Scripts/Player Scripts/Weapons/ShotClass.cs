@@ -54,23 +54,7 @@ public class ShotClass : MonoBehaviour {
 
 	public void MoveShot(){
 		transform.position = new Vector3(-999, -999, -999);
-		StartCoroutine(DeleteObject());
-	}
-
-	public IEnumerator DeleteObject(){
-		yield return new WaitForSeconds(.1f);
-		if(trailParticles != null){
-			var em = trailParticles.emission;
-			var rate = new ParticleSystem.MinMaxCurve();
-			rate.constantMax = 0f;
-			rate.constantMin = 0f;
-			em.rate = rate;
-			if(trailParticles.particleCount <= 2){
-				Destroy(this.gameObject);
-			} else {
-				StartCoroutine(DeleteObject());
-			}
-		}
+		timeAlive = timeAlive/2;
 	}
 
 	public void OnPause(){

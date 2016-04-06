@@ -39,10 +39,8 @@ public class ParticleDelete : MonoBehaviour {
 		paused = !paused;
 		if(system != null){
 			if(system.isPlaying){
-				system.playbackSpeed = 0;
 				system.Pause();
 			} else if(system.isPaused){
-				system.playbackSpeed = 1;
 				system.Play();
 
 			}
