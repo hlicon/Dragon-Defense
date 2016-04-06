@@ -17,6 +17,8 @@ public class ShotClass : MonoBehaviour {
 	protected bool paused;
 	protected bool wasPaused;
 
+	public ParticleSystem trailParticles;
+
 	public delegate void DamageEvent(float damage, GameObject col, int weaponNumber, Vector3 shotPosition);
 	public static event DamageEvent OnDamage;
 
@@ -33,8 +35,13 @@ public class ShotClass : MonoBehaviour {
 	}
 	#endregion
 
+	void Start(){
+		print(trailParticles.gameObject.name); 
+	}
 
 	void OnTriggerEnter2D(Collider2D col){
+		if(!canRoll)
+			GetComponent<Collider2D>().enabled = false;
 		GameObject coll = col.gameObject;
 
         if (OnDamage != null) {
@@ -42,11 +49,28 @@ public class ShotClass : MonoBehaviour {
         }
 	
 		Instantiate(particleToSpawn, transform.position, Quaternion.identity);
-		DeleteObject();
+		MoveShot();
 	}
 
-	public void DeleteObject(){
-		Destroy(this.gameObject);
+	public void MoveShot(){
+		transform.position = new Vector3(-999, -999, -999);
+		StartCoroutine(DeleteObject());
+	}
+
+	public IEnumerator DeleteObject(){
+		yield return new WaitForSeconds(.1f);
+		if(trailParticles != null){
+			var em = trailParticles.emission;
+			var rate = new ParticleSystem.MinMaxCurve();
+			rate.constantMax = 0f;
+			rate.constantMin = 0f;
+			em.rate = rate;
+			if(trailParticles.particleCount <= 2){
+				Destroy(this.gameObject);
+			} else {
+				StartCoroutine(DeleteObject());
+			}
+		}
 	}
 
 	public void OnPause(){
@@ -58,7 +82,7 @@ public class ShotClass : MonoBehaviour {
 		if(timeAlive > 0){
 			timeAlive -= Time.deltaTime;
 		} else if(timeAlive <= 0){ //If the fired shot is alive for longer than timeAlive, we destroy it
-			DeleteObject();
+			Destroy(gameObject);
 		}
 	}
 }

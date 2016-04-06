@@ -60,7 +60,7 @@ public class EnemyClass : MonoBehaviour {
 		Vector2 pointTextSpawn = transform.position;
 		pointTextSpawn.y += GetComponent<SpriteRenderer>().sprite.bounds.size.y/2;
 		pointTextSpawn = Camera.main.WorldToScreenPoint(pointTextSpawn);
-		GameObject clone = (GameObject)Instantiate(Resources.Load("PointText"), pointTextSpawn, Quaternion.identity);
+		GameObject clone = (GameObject)Instantiate(Resources.Load("Action Texts/PointText"), pointTextSpawn, Quaternion.identity);
 		clone.transform.SetParent(GameObject.FindGameObjectWithTag("ScreenSpaceCanvas").transform);
 		clone.transform.SetAsFirstSibling();
 		clone.GetComponent<PointTextMove>().pointDisplay = pointValue;
@@ -70,7 +70,7 @@ public class EnemyClass : MonoBehaviour {
 		Vector2 damageTextSpawn = shotPosition;
 		//damageTextSpawn.y += GetComponent<SpriteRenderer>().sprite.bounds.size.y/2;
 		damageTextSpawn = Camera.main.WorldToScreenPoint(damageTextSpawn);
-		GameObject clone = (GameObject)Instantiate(Resources.Load("DamageText"), damageTextSpawn, Quaternion.identity);
+		GameObject clone = (GameObject)Instantiate(Resources.Load("Action Texts/DamageText"), damageTextSpawn, Quaternion.identity);
 		clone.transform.SetParent(GameObject.FindGameObjectWithTag("ScreenSpaceCanvas").transform); 
 		clone.transform.SetAsFirstSibling();
 		clone.GetComponent<DamageTextMove>().colorNumber = weaponNumber;
