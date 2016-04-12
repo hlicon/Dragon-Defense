@@ -113,7 +113,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0}
   particleToSpawn: {fileID: 128018, guid: 6c9852b685c5115479f2f9a94ba390eb, type: 2}
   weaponColorNumber: 0
-  trailParticles: {fileID: 0}
+  trailParticles: {fileID: 19845634}
 --- !u!198 &19845634
 ParticleSystem:
   m_ObjectHideFlags: 1
