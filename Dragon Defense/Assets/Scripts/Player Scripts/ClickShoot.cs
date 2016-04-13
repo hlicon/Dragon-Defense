@@ -110,11 +110,20 @@ public class ClickShoot : MonoBehaviour {
 			selection = newSelection;
 		}
 
+		for(int i = 0; i < 10; i++){
+			if(Input.GetKeyDown(KeyCode.Alpha0 + i)){
+				selection = i - 1;
+			}
+			if(Input.GetKeyDown(KeyCode.Alpha0)){
+				selection = 9;
+			}
+		}
+		/*
 		if(Input.GetKeyDown(KeyCode.Alpha1)){
 			selection = 0;
 		} else if(Input.GetKeyDown(KeyCode.Alpha2)){
 			selection = 1;
-		}
+		}*/
 		OnSelectionChanged(selection);
 	}
 
