@@ -19,7 +19,9 @@ public class Glider : EnemyClass {
         rb = GetComponent<Rigidbody2D>();
         velocity = rb.velocity;
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>()); //this isn't working
-    }
+		healthBar.maxValue = health;
+		UpdateHealthBar();
+	}
 	
 	// Update is called once per frame
 	void Update () {

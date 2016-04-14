@@ -13,6 +13,8 @@ public class Knight : EnemyClass {
         rb = GetComponent<Rigidbody2D>();
 		gravity = rb.gravityScale;
 		velocity = rb.velocity;
+		healthBar.maxValue = health;
+		UpdateHealthBar();
 	}
 	
 	// Update is called once per frame

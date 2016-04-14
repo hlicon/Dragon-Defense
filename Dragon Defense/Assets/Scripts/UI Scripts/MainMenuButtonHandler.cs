@@ -7,10 +7,16 @@ public class MainMenuButtonHandler : MonoBehaviour {
 	public GameObject menuPanel;
 	public GameObject optionsPanel;
 
-	public void LoadMain(){
+	private FadeScenes fadeScenes;
+
+	void Start(){
+		fadeScenes = GameObject.FindGameObjectWithTag("SceneFader").GetComponent<FadeScenes>();
+	}
+
+	public void LoadScene(string sceneName){
 		//Fade out
 		//play dragon wake up sound(s)
-		SceneManager.LoadScene("Main");
+		fadeScenes.FadeToNewScene(sceneName);
 	}
 
 	public void ToggleOptions(){

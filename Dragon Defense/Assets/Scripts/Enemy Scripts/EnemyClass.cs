@@ -1,12 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class EnemyClass : MonoBehaviour {
 
     public delegate void DestroyEvent(float points);
     public static event DestroyEvent OnDestroyEnemy;
 
+	[Header("Health Bar")]
     [SerializeField] protected float health;
+	public Slider healthBar;
+	public Gradient healthColorGradient;
+	public Image healthBarColor;
+	private float healthPercent;
+	[Header("")]
     public float damage;
     public float moveSpeed;
 	public Vector2 velocity;
@@ -47,6 +54,7 @@ public class EnemyClass : MonoBehaviour {
 		if(col == this.gameObject){
 			health -= damageDealt;
 			SpawnDamageText(damageDealt, col, weaponNumber, shotPosition);
+			UpdateHealthBar();
 		}
 		if(health <= 0) {
             if(OnDestroyEnemy != null)
@@ -56,6 +64,12 @@ public class EnemyClass : MonoBehaviour {
 
 		}
     }
+
+	protected void UpdateHealthBar(){
+		healthBar.value = health;
+		healthPercent = health/healthBar.maxValue;
+		healthBarColor.color = healthColorGradient.Evaluate(healthPercent);
+	}
 
 	private void SpawnPointText(float pointValue){
 		Vector2 pointTextSpawn = transform.position;
