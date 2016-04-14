@@ -9,14 +9,15 @@ public class TestSpawner : MonoBehaviour
     public float spawnFreq; //used for time between spawns
     public GameObject knight;
     public GameObject ogre;
+    public GameObject glider;
     public Vector2 spawnPos;
     public int rareEnemyChance;
-    public int numWaves;
+    //public int numWaves; //ENDLESS MODE
     public int initialWaveSize;
     private bool pause;
 	private bool playerDead;
     private float timer;
-    private int pop;
+    public static int pop;
     private int currentWave;
     public int CurrentWave
     {
@@ -60,25 +61,32 @@ public class TestSpawner : MonoBehaviour
 
     void Update()
     {
-		if (!pause && !playerDead && pop < currentWaveSize)
+        timer += Time.deltaTime;
+
+        if (!pause && !playerDead && pop < currentWaveSize && timer > spawnFreq)
         {
-            timer += Time.deltaTime;
+            
             if(Random.Range(0, rareEnemyChance) == rareEnemyChance - 1) {
-                Spawn(ogre);
+                if(Random.Range(0,2) == 0)
+                {
+                    Spawn(ogre, spawnPos);
+                } else {
+                    Vector2 gliderSpawn = spawnPos;
+                    gliderSpawn.y += 4;
+                    Spawn(glider, gliderSpawn);
+                }
+                
             } else {
-                Spawn(knight);
+                Spawn(knight,spawnPos);
             }
         }
     }
 
-    private void Spawn(GameObject enemy)
+    private void Spawn(GameObject enemy, Vector2 spawnPos)
     {
-        if (timer > spawnFreq)
-        {
-            Instantiate(enemy, spawnPos, Quaternion.identity);
-            timer = 0;
-            pop++;
-        }
+        Instantiate(enemy, spawnPos, Quaternion.identity);
+        timer = 0;
+        pop++;        
     }
 
     public void NextWave()
@@ -86,7 +94,7 @@ public class TestSpawner : MonoBehaviour
         currentWave++;
         currentWaveSize *= 2;
         pop = 0;
-        print("Wave " + currentWave + " of " + numWaves + " starting!");
+        print("Wave " + currentWave + " starting!");
         if (OnNextWave != null)
             OnNextWave();
     }

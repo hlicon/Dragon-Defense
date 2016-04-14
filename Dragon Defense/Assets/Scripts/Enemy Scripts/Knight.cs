@@ -7,7 +7,6 @@ public class Knight : EnemyClass {
     private float nextAttack = 0.0f;
 
     public float attackSpeed;
-    public float moveSpeed;
 
 	// Use this for initialization
 	void Start () {

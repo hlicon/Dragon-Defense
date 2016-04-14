@@ -6,7 +6,7 @@ public class IceBolt : ShotClass {
 	private Rigidbody2D rigbod;
 	private float gravity;
 
-	void Start(){
+	void Start() {
 		shotName = "IceBolt";
 		timeAlive = 5f;
 		canRoll = false;
@@ -25,11 +25,11 @@ public class IceBolt : ShotClass {
 		gravity = rigbod.gravityScale;
 	}
 
-	void Update(){
+	void Update() {
 		PauseCheck();
 	}
 
-	private void PauseCheck(){
+	private void PauseCheck() {
 		if(!paused){
 			if(rigbod.velocity == Vector2.zero && wasPaused){
 				rigbod.velocity = velocity;

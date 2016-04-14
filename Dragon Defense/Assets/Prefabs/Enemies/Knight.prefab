@@ -89,12 +89,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
-  damage: 1
+  damage: 5
   velocity: {x: 0, y: 0}
   points: 10
   isMelee: 1
   attackSpeed: 1
-  moveSpeed: 2
+  moveSpeed: 5
 --- !u!212 &21281356
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour {
 	public delegate void DestroyEvent();
     public static event DestroyEvent OnDestroyPlayer;
 
+    public GameStateManager gsm;
+
     [Header("Player Values")]
 	public float speed; //Speed of the player
     public float health;
@@ -56,6 +58,11 @@ public class PlayerController : MonoBehaviour {
                 OnDestroyPlayer();
 				Destroy(this.gameObject);
             }
+        }
+
+        if(Input.GetKeyDown("p"))
+        {
+            gsm.PauseGame();
         }
 	}
 

@@ -49,10 +49,10 @@ public class GameOver : MonoBehaviour {
 		GameStateManager.PauseGameEnd();
     }
 
-    public void EndGameVictory()
+    public void EndWaveVictory()
     {
+        gameWinObject.GetComponentInChildren<Text>().text = "Wave " + testSpawner.CurrentWave + " complete!";
 		gameWinObject.SetActive(true);
-        gameOver = true;
 		GameStateManager.PauseGameEnd();
     }
 
@@ -62,13 +62,7 @@ public class GameOver : MonoBehaviour {
 
 	public void OnDestroyEnemy(float dam){
 		if(ScoreUpdate.WaveEnemiesKilled >= testSpawner.CurrentWaveSize) {
-            if (testSpawner.CurrentWave >= testSpawner.numWaves)
-            {
-                EndGameVictory();
-            } else
-            {
-                testSpawner.NextWave();
-            }
+            EndWaveVictory();            
 		}
 	}
 }

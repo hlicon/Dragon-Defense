@@ -94,7 +94,7 @@ MonoBehaviour:
   points: 20
   isMelee: 1
   attackSpeed: 1
-  moveSpeed: 2
+  moveSpeed: 4
 --- !u!212 &21284274
 SpriteRenderer:
   m_ObjectHideFlags: 1

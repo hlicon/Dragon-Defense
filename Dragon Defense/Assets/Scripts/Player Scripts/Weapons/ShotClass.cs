@@ -47,6 +47,11 @@ public class ShotClass : MonoBehaviour {
         if (OnDamage != null) {
 			OnDamage(damage, coll, weaponColorNumber, transform.position);
         }
+
+        if(GetComponentInChildren<IceBolt>() != null && coll.GetComponentInParent<EnemyClass>() != null) //this is shit
+        {
+            coll.GetComponentInParent<EnemyClass>().moveSpeed /= 2;
+        }
 	
 		Instantiate(particleToSpawn, transform.position, Quaternion.identity);
 		MoveShot();

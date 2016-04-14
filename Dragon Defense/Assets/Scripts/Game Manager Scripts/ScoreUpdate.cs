@@ -65,5 +65,6 @@ public class ScoreUpdate : MonoBehaviour {
     public void OnNextWave()
     {
         waveEnemiesKilled = 0;
+        GameStateManager.PauseGameEnd();
     }
 }

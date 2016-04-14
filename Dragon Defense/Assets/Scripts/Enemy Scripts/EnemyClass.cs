@@ -7,7 +7,8 @@ public class EnemyClass : MonoBehaviour {
     public static event DestroyEvent OnDestroyEnemy;
 
     [SerializeField] protected float health;
-    public float damage; 
+    public float damage;
+    public float moveSpeed;
 	public Vector2 velocity;
     public float points;
     public bool isMelee;
