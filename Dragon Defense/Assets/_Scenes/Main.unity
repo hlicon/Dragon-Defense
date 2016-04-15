@@ -2633,11 +2633,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 432340, guid: 3370456d957585a4fbe9788ddb84e5e2, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -2.6
+      value: -2.98
       objectReference: {fileID: 0}
     - target: {fileID: 432340, guid: 3370456d957585a4fbe9788ddb84e5e2, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.71
+      value: -0.15
       objectReference: {fileID: 0}
     - target: {fileID: 432340, guid: 3370456d957585a4fbe9788ddb84e5e2, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2719,6 +2719,14 @@ Prefab:
       propertyPath: gsm
       value: 
       objectReference: {fileID: 959672481}
+    - target: {fileID: 432340, guid: 3370456d957585a4fbe9788ddb84e5e2, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 432340, guid: 3370456d957585a4fbe9788ddb84e5e2, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6043640, guid: 3370456d957585a4fbe9788ddb84e5e2, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 3370456d957585a4fbe9788ddb84e5e2, type: 2}
@@ -3214,7 +3222,7 @@ MonoBehaviour:
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
+  m_ForceModuleActive: 1
 --- !u!114 &1971407026
 MonoBehaviour:
   m_ObjectHideFlags: 0

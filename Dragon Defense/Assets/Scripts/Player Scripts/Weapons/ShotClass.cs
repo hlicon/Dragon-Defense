@@ -11,13 +11,13 @@ public class ShotClass : MonoBehaviour {
 	public bool lobShot; //Will it lob, or be a straight shot?
 	public int amountToFire = 1; //Amount of shots to fire (increased with upgrade system etc)
 	public Vector2 velocity;
-	public GameObject particleToSpawn;
 	public int weaponColorNumber;
 
 	protected bool paused;
 	protected bool wasPaused;
 
 	public ParticleSystem trailParticles;
+	public ParticleSystem burstParticles;
 
 	public delegate void DamageEvent(float damage, GameObject col, int weaponNumber, Vector3 shotPosition);
 	public static event DamageEvent OnDamage;
@@ -35,11 +35,8 @@ public class ShotClass : MonoBehaviour {
 	}
 	#endregion
 
-	void Start(){
-		print(trailParticles.gameObject.name); 
-	}
-
 	void OnTriggerEnter2D(Collider2D col){
+		burstParticles.Play();
 		if(!canRoll)
 			GetComponent<Collider2D>().enabled = false;
 		GameObject coll = col.gameObject;
@@ -52,13 +49,12 @@ public class ShotClass : MonoBehaviour {
         {
             coll.GetComponentInParent<EnemyClass>().moveSpeed /= 2;
         }
-	
-		Instantiate(particleToSpawn, transform.position, Quaternion.identity);
 		MoveShot();
 	}
 
 	public void MoveShot(){
-		transform.position = new Vector3(-999, -999, -999);
+		GetComponent<SpriteRenderer>().enabled = false;
+		trailParticles.Stop();
 		timeAlive = timeAlive/2;
 	}
 
