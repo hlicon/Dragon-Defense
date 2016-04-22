@@ -44,6 +44,10 @@ public class ClickShoot : MonoBehaviour {
 		Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Shot")); 
 		//Ignores the shot layer so the player doesn't get pushed around by the shots
 		paused = false;
+
+		for(int i = 0; i < 2; i++){
+			Pooling.Preload(Shots[i], 20);
+		}
 	}
 
 	void Update(){
@@ -93,11 +97,12 @@ public class ClickShoot : MonoBehaviour {
 
 	private void FireWeapon(Vector2 Dir){
 		canShoot = false;
-		GameObject clone = (GameObject)Instantiate(Shots[selection], shotSpawnPos, Quaternion.identity);
+		GameObject clone = (GameObject)Pooling.Spawn(Shots[selection], shotSpawnPos, Quaternion.identity);
 		//Spawn the shot from the selection
 		ShotClass cloneShotClass = clone.GetComponent<ShotClass>();
 		//Getting the shot class
 		clone.GetComponent<Rigidbody2D>().AddForce(Dir + Dir, ForceMode2D.Impulse);
+		clone.GetComponent<Collider2D>().enabled = true;
 		//Applying the force we passed in from calculating
 
 		if(!cloneShotClass.lobShot){

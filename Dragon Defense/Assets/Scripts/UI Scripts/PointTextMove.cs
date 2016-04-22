@@ -9,8 +9,21 @@ public class PointTextMove : MonoBehaviour {
 	private float moveUpAmount = 2f;
 	private Vector3 movePosition;
 	private float timedDestroy;
+	private bool paused;
 
 	private Text text;
+
+	#region Event Subscriptions
+	void OnEnable(){
+		GameStateManager.OnPause += OnPause;
+	}
+	void OnDisable(){
+		GameStateManager.OnPause -= OnPause;
+	}
+	void OnDestroy(){
+		GameStateManager.OnPause -= OnPause;
+	}
+	#endregion
 
 	void Start(){
 		movePosition = transform.position;
@@ -19,6 +32,11 @@ public class PointTextMove : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
+		if(!paused)
+			Move();
+	}
+
+	private void Move(){
 		movePosition.y += moveUpAmount;
 		moveUpAmount -= moveUpAmount/50;
 
@@ -30,5 +48,9 @@ public class PointTextMove : MonoBehaviour {
 			}
 		}
 		transform.position = movePosition;
+	}
+
+	void OnPause(){
+		paused = !paused;
 	}
 }

@@ -14,7 +14,7 @@ public class TestSpawner : MonoBehaviour
     public int rareEnemyChance;
     //public int numWaves; //ENDLESS MODE
     public int initialWaveSize;
-    private bool pause;
+    private bool paused;
 	private bool playerDead;
     private float timer;
     public static int pop;
@@ -51,21 +51,24 @@ public class TestSpawner : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        pause = false;
+        paused = false;
 		playerDead = false;
         timer = 0;
         pop = 0;
         currentWave = 1;
         currentWaveSize = initialWaveSize;
+		Pooling.Preload(knight, 5);
+		Pooling.Preload(ogre, 5);
+		Pooling.Preload(glider, 5);
     }
 
     void Update()
     {
-        timer += Time.deltaTime;
-
-        if (!pause && !playerDead && pop < currentWaveSize && timer > spawnFreq)
+		if(!paused)
+			timer += Time.deltaTime;
+		
+        if (!paused && !playerDead && pop < currentWaveSize && timer > spawnFreq)
         {
-            
             if(Random.Range(0, rareEnemyChance) == rareEnemyChance - 1) {
                 if(Random.Range(0,2) == 0)
                 {
@@ -84,8 +87,8 @@ public class TestSpawner : MonoBehaviour
 
     private void Spawn(GameObject enemy, Vector2 spawnPos)
     {
-        Instantiate(enemy, spawnPos, Quaternion.identity);
-        timer = 0;
+		GameObject clone = (GameObject)Pooling.Spawn(enemy, spawnPos, Quaternion.identity);
+		timer = 0;
         pop++;        
     }
 
@@ -105,6 +108,6 @@ public class TestSpawner : MonoBehaviour
 
     public void OnPause()
     {
-        pause = !pause;
+        paused = !paused;
     }
 }

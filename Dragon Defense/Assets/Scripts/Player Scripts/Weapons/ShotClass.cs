@@ -22,6 +22,7 @@ public class ShotClass : MonoBehaviour {
 	public delegate void DamageEvent(float damage, GameObject col, int weaponNumber, Vector3 shotPosition);
 	public static event DamageEvent OnDamage;
 
+	protected float startTimeAlive;
 
 	#region Event Subscriptions
 	void OnEnable(){
@@ -37,23 +38,28 @@ public class ShotClass : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D col){
 		burstParticles.Play();
-		if(!canRoll)
-			GetComponent<Collider2D>().enabled = false;
-		GameObject coll = col.gameObject;
+
+		GetComponent<Collider2D>().enabled = false;
 
         if (OnDamage != null) {
-			OnDamage(damage, coll, weaponColorNumber, transform.position);
+			OnDamage(damage, col.gameObject, weaponColorNumber, transform.position);
         }
 
-        if(GetComponentInChildren<IceBolt>() != null && coll.GetComponentInParent<EnemyClass>() != null) //this is shit
+        if(GetComponent<IceBolt>() != null && col.GetComponent<EnemyClass>() != null) //this is shit
         {
-            coll.GetComponentInParent<EnemyClass>().moveSpeed /= 2;
+            col.GetComponent<EnemyClass>().moveSpeed/= 2;
         }
+		StartCoroutine(MoveWait()); //Need this so burstparticles are shown in correct area
+		//They were spawning after the move even though the play is called first? @_@
+	}
+
+	private IEnumerator MoveWait(){
+		yield return new WaitForSeconds(.01f);
 		MoveShot();
 	}
 
 	public void MoveShot(){
-		GetComponent<SpriteRenderer>().enabled = false;
+		transform.position = new Vector3(999,999,999);
 		trailParticles.Stop();
 		timeAlive = timeAlive/2;
 	}
@@ -67,7 +73,8 @@ public class ShotClass : MonoBehaviour {
 		if(timeAlive > 0){
 			timeAlive -= Time.deltaTime;
 		} else if(timeAlive <= 0){ //If the fired shot is alive for longer than timeAlive, we destroy it
-			Destroy(gameObject);
+			timeAlive = startTimeAlive;
+			Pooling.Despawn(gameObject);
 		}
 	}
 }

@@ -9,6 +9,7 @@ public class IceBolt : ShotClass {
 	void Start() {
 		shotName = "IceBolt";
 		timeAlive = 5f;
+		startTimeAlive = timeAlive;
 		canRoll = false;
 		lobShot = true;
 		canCollideWithShots = false;

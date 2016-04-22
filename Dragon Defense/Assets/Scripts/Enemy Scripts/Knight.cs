@@ -14,6 +14,9 @@ public class Knight : EnemyClass {
 		gravity = rb.gravityScale;
 		velocity = rb.velocity;
 		healthBar.maxValue = health;
+		startHealth = health;
+		startSpawn = transform.position;
+		startMoveSpeed = moveSpeed;
 		UpdateHealthBar();
 	}
 	

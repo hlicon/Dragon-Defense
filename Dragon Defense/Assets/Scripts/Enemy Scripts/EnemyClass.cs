@@ -9,6 +9,7 @@ public class EnemyClass : MonoBehaviour {
 
 	[Header("Health Bar")]
     [SerializeField] protected float health;
+	protected float startHealth;
 	public Slider healthBar;
 	public Gradient healthColorGradient;
 	public Image healthBarColor;
@@ -16,12 +17,14 @@ public class EnemyClass : MonoBehaviour {
 	[Header("")]
     public float damage;
     public float moveSpeed;
+	protected float startMoveSpeed;
 	public Vector2 velocity;
     public float points;
     public bool isMelee;
 
     protected bool paused;
     protected bool wasPaused;
+	protected Vector2 startSpawn;
 
 	#region Event Subscriptions
 	void OnEnable(){
@@ -38,10 +41,6 @@ public class EnemyClass : MonoBehaviour {
 	}
 	#endregion
 
-    public void DeleteObject() //Used for deleting the object upon death
-    {
-        Destroy(this.gameObject);
-    }
 
     public void OnPause() 
     {
@@ -51,7 +50,7 @@ public class EnemyClass : MonoBehaviour {
 
 	public void OnDamage(float damageDealt, GameObject col, int weaponNumber, Vector3 shotPosition) //Used for taking damage
     {
-		if(col == this.gameObject){
+		if(col == gameObject){
 			health -= damageDealt;
 			SpawnDamageText(damageDealt, col, weaponNumber, shotPosition);
 			UpdateHealthBar();
@@ -60,10 +59,27 @@ public class EnemyClass : MonoBehaviour {
             if(OnDestroyEnemy != null)
                 OnDestroyEnemy(points);
 			SpawnPointText(points);
-			DeleteObject();
-
+			DespawnThis();
 		}
     }
+
+	void OnTriggerEnter2D(Collider2D col){
+		if(col.name.Contains("Despawn")){
+			TestSpawner.pop--;
+			DespawnThis();
+		}
+	}
+
+	private void DespawnThis(){
+		ResetValues();
+		UpdateHealthBar();
+		Pooling.Despawn(gameObject);
+	}
+
+	public void ResetValues(){
+		health = startHealth;
+		transform.position = startSpawn;
+	}
 
 	protected void UpdateHealthBar(){
 		healthBar.value = health;
@@ -83,7 +99,6 @@ public class EnemyClass : MonoBehaviour {
 
 	private void SpawnDamageText(float damageDealt, GameObject col, int weaponNumber, Vector3 shotPosition){
 		Vector2 damageTextSpawn = shotPosition;
-		//damageTextSpawn.y += GetComponent<SpriteRenderer>().sprite.bounds.size.y/2;
 		damageTextSpawn = Camera.main.WorldToScreenPoint(damageTextSpawn);
 		GameObject clone = (GameObject)Instantiate(Resources.Load("Action Texts/DamageText"), damageTextSpawn, Quaternion.identity);
 		clone.transform.SetParent(GameObject.FindGameObjectWithTag("ScreenSpaceCanvas").transform); 

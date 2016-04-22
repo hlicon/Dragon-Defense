@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
 
 	private Rigidbody2D rb; //Rigidbody component
 	private bool paused;
+	private bool roundWin;
 
 	#region Event Subscriptions
 	void OnEnable(){
@@ -60,7 +61,7 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        if(Input.GetKeyDown("p"))
+		if(Input.GetKeyDown("p") && !roundWin)
         {
             gsm.PauseGame();
         }
@@ -68,6 +69,7 @@ public class PlayerController : MonoBehaviour {
 
 	public void OnRoundWin(){
 		paused = !paused;
+		roundWin = !roundWin;
 	}
 
     public void OnPause(){

@@ -9,6 +9,7 @@ public class FireBolt : ShotClass {
 	void Start(){
 		shotName = "FireBolt";
 		timeAlive = 5f;
+		startTimeAlive = timeAlive;
 		canRoll = false;
 		lobShot = true;
 		canCollideWithShots = false;

@@ -6,6 +6,7 @@ public class Glider : EnemyClass {
     private float nextAttack = 0.0f;
     private float xOffset;
     private float yOffset;
+	private float xMovement;
     private float sinAmp; //used to determine the amplitude of the movement
 
     public float attackSpeed;
@@ -18,19 +19,30 @@ public class Glider : EnemyClass {
         isMelee = false;
         rb = GetComponent<Rigidbody2D>();
         velocity = rb.velocity;
+		startMoveSpeed = moveSpeed;
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>()); //this isn't working
 		healthBar.maxValue = health;
+		startHealth = health;
+		startSpawn = transform.position;
 		UpdateHealthBar();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        float sin = Mathf.Sin(Time.time * moveSpeed) * sinAmp + yOffset;
-        xOffset -= Time.deltaTime * moveSpeed;
-        transform.position = new Vector2(xOffset, sin);
+		if(!paused){
+			xMovement += Time.deltaTime;
+			Move();
+		}
 
         PauseCheck();
     }
+
+	private void Move(){
+		float sin = Mathf.Sin(xMovement * moveSpeed) * sinAmp + yOffset;
+		Vector2 movement = Vector2.left;
+		rb.velocity = movement * moveSpeed;
+		transform.position = new Vector2(transform.position.x, sin);
+	}
 
     private void PauseCheck()
     {
