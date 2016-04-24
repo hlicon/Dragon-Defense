@@ -19,6 +19,8 @@ public class Knight : EnemyClass {
 		startMoveSpeed = moveSpeed;
 		UpdateHealthBar();
 	}
+
+
 	
 	// Update is called once per frame
 	void Update () {
@@ -27,7 +29,6 @@ public class Knight : EnemyClass {
         rb.velocity = movement * moveSpeed;
 
 		PauseCheck();
-
 	}
 
 	private void PauseCheck(){

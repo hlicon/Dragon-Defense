@@ -7,7 +7,9 @@ public class PointTextMove : MonoBehaviour {
 	[HideInInspector]
 	public float pointDisplay = 0;
 	private float moveUpAmount = 2f;
-	private Vector3 movePosition;
+	private float startMoveUpAmount;
+	[HideInInspector]
+	public Vector2 movePosition;
 	private float timedDestroy;
 	private bool paused;
 
@@ -27,13 +29,17 @@ public class PointTextMove : MonoBehaviour {
 
 	void Start(){
 		movePosition = transform.position;
+		startMoveUpAmount = moveUpAmount;
 		text = GetComponent<Text>();
-		text.text = "+ " + pointDisplay;
 	}
 
 	void FixedUpdate(){
 		if(!paused)
 			Move();
+	}
+
+	void Update(){
+		text.text = "+ " + pointDisplay;
 	}
 
 	private void Move(){
@@ -44,7 +50,9 @@ public class PointTextMove : MonoBehaviour {
 			timedDestroy += Time.fixedDeltaTime;
 			text.CrossFadeAlpha(0f, .35f, false);
 			if(timedDestroy >= .5f){
-				Destroy(gameObject);
+				Pooling.Despawn(gameObject);
+				timedDestroy = 0;
+				moveUpAmount = startMoveUpAmount;
 			}
 		}
 		transform.position = movePosition;

@@ -8,9 +8,11 @@ public class DamageTextMove : MonoBehaviour {
 	public float damageDealt;
 	[HideInInspector]
 	public int colorNumber = 0;
-	private Vector2 movePosition;
+	[HideInInspector]
+	public Vector2 movePosition;
 	private Vector3 rotation;
 	private float moveUpAmount = 1.5f;
+	private float startMoveUpAmount;
 	private float moveLeftRightAmount;
 	private float rotateAmount;
 	private Text text;
@@ -32,14 +34,14 @@ public class DamageTextMove : MonoBehaviour {
 
 	void Start(){
 		text = GetComponent<Text>();
-		text.color = colors[colorNumber];
 		rotation = Vector3.zero;
 		movePosition = transform.position;
-		text.text = damageDealt.ToString();
 		randXMove = Random.Range(0, 2);
 		randZRotate = Random.Range(0, 2);
 		rotateAmount = Random.Range(5f, 7.5f) + Random.value;
 		moveLeftRightAmount += Random.value + Random.value;
+
+		startMoveUpAmount = moveUpAmount;
 	}
 
 	void FixedUpdate(){
@@ -56,10 +58,19 @@ public class DamageTextMove : MonoBehaviour {
 				timedDestroy += Time.fixedDeltaTime;
 				text.CrossFadeAlpha(0f, .25f, false);
 				if(timedDestroy >= .4f){
-					Destroy(gameObject);
+					Pooling.Despawn(gameObject);
+					timedDestroy = 0;
+					moveUpAmount = startMoveUpAmount;
+					moveLeftRightAmount = Random.value + Random.value;
+					rotation.z = 0;
 				}
 			}
 		}
+	}
+
+	void Update(){
+		text.color = colors[colorNumber];
+		text.text = damageDealt.ToString();
 	}
 
 	private void RotateLeftRight(){

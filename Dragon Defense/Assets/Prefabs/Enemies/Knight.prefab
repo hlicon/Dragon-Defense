@@ -255,6 +255,8 @@ MonoBehaviour:
   velocity: {x: 0, y: 0}
   points: 10
   isMelee: 1
+  damageText: {fileID: 199318, guid: ff26ca9c24c7c7e41bfec5f015aaf133, type: 2}
+  pointText: {fileID: 175882, guid: e554dcf961910874e91864f093f04d0d, type: 2}
   attackSpeed: 1
 --- !u!114 &11408792
 MonoBehaviour:

@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 guid: 6403c4c69a8f538478b5df5f311a76ef
-timeCreated: 1457661320
+timeCreated: 1461442008
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - healthBar: {instanceID: 0}
+  - healthBarColor: {instanceID: 0}
+  - damageText: {fileID: 199318, guid: ff26ca9c24c7c7e41bfec5f015aaf133, type: 2}
+  - pointText: {fileID: 175882, guid: e554dcf961910874e91864f093f04d0d, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

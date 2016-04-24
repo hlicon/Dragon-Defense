@@ -15,9 +15,12 @@ public class EnemyClass : MonoBehaviour {
 	public Image healthBarColor;
 	private float healthPercent;
 	[Header("")]
-    public float damage;
+    public float damage;	
     public float moveSpeed;
-	protected float startMoveSpeed;
+	public float startMoveSpeed;
+	public float StartMoveSpeed{
+		get{return startMoveSpeed;}
+	}
 	public Vector2 velocity;
     public float points;
     public bool isMelee;
@@ -26,10 +29,15 @@ public class EnemyClass : MonoBehaviour {
     protected bool wasPaused;
 	protected Vector2 startSpawn;
 
+	[Header("Action Texts")]
+	public GameObject damageText;
+	public GameObject pointText;
+
 	#region Event Subscriptions
 	void OnEnable(){
 		GameStateManager.OnPause += OnPause;
 		ShotClass.OnDamage += OnDamage;
+
 	}
 	void OnDisable(){
 		GameStateManager.OnPause -= OnPause;
@@ -40,7 +48,6 @@ public class EnemyClass : MonoBehaviour {
 		ShotClass.OnDamage -= OnDamage;
 	}
 	#endregion
-
 
     public void OnPause() 
     {
@@ -77,6 +84,7 @@ public class EnemyClass : MonoBehaviour {
 	}
 
 	public void ResetValues(){
+		moveSpeed = startMoveSpeed;
 		health = startHealth;
 		transform.position = startSpawn;
 	}
@@ -91,20 +99,26 @@ public class EnemyClass : MonoBehaviour {
 		Vector2 pointTextSpawn = transform.position;
 		pointTextSpawn.y += GetComponent<SpriteRenderer>().sprite.bounds.size.y/2;
 		pointTextSpawn = Camera.main.WorldToScreenPoint(pointTextSpawn);
-		GameObject clone = (GameObject)Instantiate(Resources.Load("Action Texts/PointText"), pointTextSpawn, Quaternion.identity);
+		GameObject clone = (GameObject)Pooling.Spawn(pointText, pointTextSpawn, Quaternion.identity);
 		clone.transform.SetParent(GameObject.FindGameObjectWithTag("ScreenSpaceCanvas").transform);
 		clone.transform.SetAsFirstSibling();
-		clone.GetComponent<PointTextMove>().pointDisplay = pointValue;
+		clone.GetComponent<Text>().CrossFadeAlpha(1, 0f, false);
+		PointTextMove clonePTM = clone.GetComponent<PointTextMove>();
+		clonePTM.pointDisplay = pointValue;
+		clonePTM.movePosition = pointTextSpawn;
 	}
 
 	private void SpawnDamageText(float damageDealt, GameObject col, int weaponNumber, Vector3 shotPosition){
 		Vector2 damageTextSpawn = shotPosition;
 		damageTextSpawn = Camera.main.WorldToScreenPoint(damageTextSpawn);
-		GameObject clone = (GameObject)Instantiate(Resources.Load("Action Texts/DamageText"), damageTextSpawn, Quaternion.identity);
+		GameObject clone = (GameObject)Pooling.Spawn(damageText, damageTextSpawn, Quaternion.identity);
 		clone.transform.SetParent(GameObject.FindGameObjectWithTag("ScreenSpaceCanvas").transform); 
 		clone.transform.SetAsFirstSibling();
-		clone.GetComponent<DamageTextMove>().colorNumber = weaponNumber;
-		clone.GetComponent<DamageTextMove>().damageDealt = damageDealt;
+		clone.GetComponent<Text>().CrossFadeAlpha(1, 0f, false);
+		DamageTextMove cloneDTM = clone.GetComponent<DamageTextMove>();
+		cloneDTM.colorNumber = weaponNumber;
+		cloneDTM.damageDealt = damageDealt;
+		cloneDTM.movePosition = damageTextSpawn;
 	}
 
 }
