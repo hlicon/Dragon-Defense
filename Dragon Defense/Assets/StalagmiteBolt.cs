@@ -1,17 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FireBolt : ShotClass {
+public class StalagmiteBolt : ShotClass {
 
-	void Start(){
-		shotName = "FireBolt";
+	// Use this for initialization
+	void Start () {
+		shotName = "Stalagmite";
+		damage = 15;
 		timeAlive = 5f;
 		startTimeAlive = timeAlive;
-		canRoll = false;
-		lobShot = true;
-		canCollideWithShots = false;
-		paused = false;
-		wasPaused = false;
+		amountToFire = 1;
+		weaponColorNumber = 4;
 
 		if(canCollideWithShots != true){
 			Physics2D.IgnoreLayerCollision(gameObject.layer, gameObject.layer);
@@ -19,12 +18,13 @@ public class FireBolt : ShotClass {
 		}
 
 		rigbod = GetComponent<Rigidbody2D>();
-		velocity = rigbod.velocity;
 		gravity = rigbod.gravityScale;
 	}
-
+	
 	void Update(){
 		PauseCheck();
+		//Temp
+		transform.localRotation = Quaternion.Euler(0, 0, 90);
 	}
 
 	private void PauseCheck(){
@@ -46,5 +46,4 @@ public class FireBolt : ShotClass {
 			rigbod.gravityScale = 0;
 		}
 	}
-		
 }

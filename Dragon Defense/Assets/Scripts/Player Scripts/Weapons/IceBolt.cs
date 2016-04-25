@@ -3,9 +3,6 @@ using System.Collections;
 
 public class IceBolt : ShotClass {
 
-	private Rigidbody2D rigbod;
-	private float gravity;
-
 	void Start() {
 		shotName = "IceBolt";
 		timeAlive = 5f;
@@ -30,20 +27,23 @@ public class IceBolt : ShotClass {
 		PauseCheck();
 	}
 
-	private void PauseCheck() {
+	private void PauseCheck(){
 		if(!paused){
 			if(rigbod.velocity == Vector2.zero && wasPaused){
+				trailParticles.Play();
+				if(burstParticles.particleCount > 0)
+					burstParticles.Play();
 				rigbod.velocity = velocity;
 				rigbod.gravityScale = gravity;
-				trailParticles.Play();
 			}
 			velocity = rigbod.velocity;
 			CheckTime();
 		} else {
 			wasPaused = false;
+			trailParticles.Pause();
+			burstParticles.Pause();
 			rigbod.velocity = Vector2.zero;
 			rigbod.gravityScale = 0;
-			trailParticles.Pause();
 		}
 	}
 

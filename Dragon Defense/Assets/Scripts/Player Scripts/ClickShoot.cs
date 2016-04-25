@@ -9,7 +9,9 @@ public class ClickShoot : MonoBehaviour {
 	private int selection = 0;
 	private float power;
 	private float angle;
+	private float stompWait;
 	private Vector2 shotSpawnPos;
+	private Camera mainCam;
 
 	public Transform shotSpawn;
 
@@ -18,6 +20,7 @@ public class ClickShoot : MonoBehaviour {
 
 	[Header("Weapons")]
 	public GameObject[] Shots;
+	public GameObject Stalags;
 
 	public delegate void SelectionEvent(int selection);
 	public static event SelectionEvent OnSelectionChanged;
@@ -45,9 +48,14 @@ public class ClickShoot : MonoBehaviour {
 		//Ignores the shot layer so the player doesn't get pushed around by the shots
 		paused = false;
 
+		mainCam = Camera.main;
+
 		for(int i = 0; i < 2; i++){
 			Pooling.Preload(Shots[i], 20);
 		}
+		//temp
+		Pooling.Preload(Shots[4], 20);
+		Pooling.Preload(Stalags, 20);
 	}
 
 	void Update(){
@@ -76,6 +84,12 @@ public class ClickShoot : MonoBehaviour {
 				shotTimer = .5f;
 				canShoot = true;
 		}
+		if(stompWait > 0){
+			stompWait -=Time.deltaTime;
+			if(stompWait <= 0){
+				camShake();
+			}
+		}
 	}
 		
 	private void CalculateShot(){
@@ -83,31 +97,51 @@ public class ClickShoot : MonoBehaviour {
 		Debug.DrawLine(shotSpawnPos, mouseClickPosition, Color.red);
 		//Drawing a line in the scene (not the game view) to help display where we're clicking
 
-		Vector2 Dir = mouseClickPosition - shotSpawnPos;
+		Vector2[] Dir = new Vector2[Shots[selection].GetComponent<ShotClass>().amountToFire];
+
 		//Where we want to apply the force to
 
-		if(Dir.x > 4f)
-			Dir.x = 4f;
-		if(Dir.y > 4f)
-			Dir.y = 4f;
+		for(int i = 0; i < Dir.Length; i++){
+			float tempI = i;
+			float tempLength = Dir.Length;
+			float splitShot = tempI/tempLength;
+			Vector2 splitOffset = new Vector2(splitShot + Random.value, splitShot + Random.value);
+			Dir[i] = mouseClickPosition - shotSpawnPos - splitOffset;
+
+			if(Dir[i].x > 4f)
+				Dir[i].x = 4f + splitShot;
+			if(Dir[i].y > 4f)
+				Dir[i].y = 4f + splitShot;
+		}
 		//Limit the distance so we don't fire too far
 
 		FireWeapon(Dir); //After we've "calculated" the distance we're going to fire the shot
 	}
 
-	private void FireWeapon(Vector2 Dir){
+	private void FireWeapon(Vector2[] Dir){
+		for(int i = 0; i < Dir.Length; i++){
 		canShoot = false;
 		GameObject clone = (GameObject)Pooling.Spawn(Shots[selection], shotSpawnPos, Quaternion.identity);
 		//Spawn the shot from the selection
 		ShotClass cloneShotClass = clone.GetComponent<ShotClass>();
 		//Getting the shot class
-		clone.GetComponent<Rigidbody2D>().AddForce(Dir + Dir, ForceMode2D.Impulse);
+		clone.GetComponent<Rigidbody2D>().AddForce(Dir[i] + Dir[i], ForceMode2D.Impulse);
 		clone.GetComponent<Collider2D>().enabled = true;
 		//Applying the force we passed in from calculating
 
 		if(!cloneShotClass.lobShot){
 			clone.GetComponent<Rigidbody2D>().gravityScale = 0; //Turn gravity off for straight shots
 		}
+		if(cloneShotClass.shotName.Equals("Stomp")){
+			//play stomp animation
+			stompWait = .5f;
+		}
+		}
+	}
+
+	private void camShake(){
+		mainCam.GetComponent<CameraShake>().StartShake();
+		stompWait = 0;
 	}
 
 	public void GetSelection(int newSelection){ //Setting selection to the selected shot in the Shots array
@@ -123,12 +157,6 @@ public class ClickShoot : MonoBehaviour {
 				selection = 9;
 			}
 		}
-		/*
-		if(Input.GetKeyDown(KeyCode.Alpha1)){
-			selection = 0;
-		} else if(Input.GetKeyDown(KeyCode.Alpha2)){
-			selection = 1;
-		}*/
 		OnSelectionChanged(selection);
 	}
 

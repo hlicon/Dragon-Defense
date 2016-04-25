@@ -35,7 +35,7 @@ MonoBehaviour:
   - {r: 0, g: 0.66896534, b: 1, a: 1}
   - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0.6544118, g: 0.515034, b: 0.14916737, a: 1}
   - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
@@ -43,6 +43,7 @@ MonoBehaviour:
   - {r: 0, g: 0, b: 0, a: 0}
   damageDealt: 0
   colorNumber: 0
+  movePosition: {x: 0, y: 0}
 --- !u!114 &11447704
 MonoBehaviour:
   m_ObjectHideFlags: 1

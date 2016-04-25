@@ -11,6 +11,8 @@ public class ShotClass : MonoBehaviour {
 	public bool lobShot; //Will it lob, or be a straight shot?
 	public int amountToFire = 1; //Amount of shots to fire (increased with upgrade system etc)
 	public Vector2 velocity;
+	protected Rigidbody2D rigbod;
+	protected float gravity;
 	public int weaponColorNumber;
 
 	protected bool paused;
@@ -56,6 +58,7 @@ public class ShotClass : MonoBehaviour {
 	private IEnumerator MoveWait(){
 		yield return new WaitForSeconds(.01f);
 		MoveShot();
+		GetComponent<Collider2D>().enabled = true;
 	}
 
 	public void MoveShot(){
@@ -74,6 +77,8 @@ public class ShotClass : MonoBehaviour {
 			timeAlive -= Time.deltaTime;
 		} else if(timeAlive <= 0){ //If the fired shot is alive for longer than timeAlive, we destroy it
 			timeAlive = startTimeAlive;
+			velocity = Vector2.zero;
+			rigbod.velocity = Vector2.zero;
 			Pooling.Despawn(gameObject);
 		}
 	}
