@@ -19,7 +19,7 @@ public class Glider : EnemyClass {
         isMelee = false;
         rb = GetComponent<Rigidbody2D>();
         velocity = rb.velocity;
-		startMoveSpeed = moveSpeed;
+		moveSpeed = startMoveSpeed;
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>()); //this isn't working
 		healthBar.maxValue = health;
 		startHealth = health;

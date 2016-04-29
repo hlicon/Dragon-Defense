@@ -27,6 +27,10 @@ public class StalagmiteBolt : ShotClass {
 		transform.localRotation = Quaternion.Euler(0, 0, 90);
 	}
 
+	void OnTriggerEnter2D(Collider2D col) {
+		OnHit (col);
+	}
+
 	private void PauseCheck(){
 		if(!paused){
 			if(rigbod.velocity == Vector2.zero && wasPaused){

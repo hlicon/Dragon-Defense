@@ -38,19 +38,14 @@ public class ShotClass : MonoBehaviour {
 	}
 	#endregion
 
-	void OnTriggerEnter2D(Collider2D col){
+	public void OnHit(Collider2D col){
 		burstParticles.Play();
 
 		GetComponent<Collider2D>().enabled = false;
 
-		if(shotName.Equals("IceBolt") && col.GetComponent<EnemyClass>() != null) //this is shit
-		{
-			col.GetComponent<EnemyClass>().moveSpeed/= 2;
-		}
-
-        if (OnDamage != null) {
+		if (OnDamage != null) {
 			OnDamage(damage, col.gameObject, weaponColorNumber, transform.position);
-        }
+		}
 		StartCoroutine(MoveWait()); //Need this so burstparticles are shown in correct area
 		//They were spawning after the move even though the play is called first? @_@
 	}

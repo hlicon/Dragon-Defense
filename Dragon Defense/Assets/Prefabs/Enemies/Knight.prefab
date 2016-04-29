@@ -251,7 +251,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   healthBarColor: {fileID: 11469998}
   damage: 5
-  moveSpeed: 5
+  moveSpeed: 0
+  startMoveSpeed: 5
   velocity: {x: 0, y: 0}
   points: 10
   isMelee: 1
@@ -487,7 +488,6 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0

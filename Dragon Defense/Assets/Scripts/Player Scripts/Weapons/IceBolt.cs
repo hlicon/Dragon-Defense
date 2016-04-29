@@ -27,6 +27,16 @@ public class IceBolt : ShotClass {
 		PauseCheck();
 	}
 
+	//this might be fucking dumb and need to be deleted
+	void OnTriggerEnter2D(Collider2D col) {
+		OnHit (col);
+
+		if(col.GetComponent<EnemyClass>() != null)
+		{
+			col.GetComponent<EnemyClass>().moveSpeed/= 2;
+		}
+	}
+
 	private void PauseCheck(){
 		if(!paused){
 			if(rigbod.velocity == Vector2.zero && wasPaused){

@@ -16,7 +16,7 @@ public class Knight : EnemyClass {
 		healthBar.maxValue = health;
 		startHealth = health;
 		startSpawn = transform.position;
-		startMoveSpeed = moveSpeed;
+		moveSpeed = startMoveSpeed;
 		UpdateHealthBar();
 	}
 
