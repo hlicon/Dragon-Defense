@@ -84,9 +84,7 @@ public class EnemyClass : MonoBehaviour {
 	}
 
 	public void ResetValues(){
-		print("ResetValues() method successfully called."); //debug
-		moveSpeed = startMoveSpeed; //FUCKING WORK YOU ASS
-		print (moveSpeed); //debug
+		moveSpeed = startMoveSpeed;
 		health = startHealth;
 		transform.position = startSpawn;
 	}
