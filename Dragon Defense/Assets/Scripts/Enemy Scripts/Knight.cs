@@ -11,6 +11,7 @@ public class Knight : EnemyClass {
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
+		spriteRend = GetComponent<SpriteRenderer>();
 		gravity = rb.gravityScale;
 		velocity = rb.velocity;
 		healthBar.maxValue = health;

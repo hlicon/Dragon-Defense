@@ -134,14 +134,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shotName: FireBolt
-  damage: 10
   timeAlive: 5
+  weaponColorNumber: 0
   canRoll: 0
   canCollideWithShots: 0
   lobShot: 1
   amountToFire: 1
-  velocity: {x: 0, y: 0}
-  weaponColorNumber: 0
+  damage: 10
+  damageMultiplier: 1
+  affectType: 0
+  affectDamage: 1
+  affectTime: 3
+  affectDamageMultiplier: 1
+  affectTimeMultiplier: 1
   trailParticles: {fileID: 19845634}
   burstParticles: {fileID: 19801454}
 --- !u!198 &19801454

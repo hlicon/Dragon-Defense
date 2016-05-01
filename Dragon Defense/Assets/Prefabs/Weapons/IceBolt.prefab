@@ -134,14 +134,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shotName: IceBolt
-  damage: 5
   timeAlive: 5
+  weaponColorNumber: 1
   canRoll: 0
   canCollideWithShots: 0
   lobShot: 1
   amountToFire: 1
-  velocity: {x: 0, y: 0}
-  weaponColorNumber: 1
+  damage: 5
+  damageMultiplier: 1
+  affectType: 2
+  affectDamage: 0
+  affectTime: 5
+  affectDamageMultiplier: 0
+  affectTimeMultiplier: 1
   trailParticles: {fileID: 19850874}
   burstParticles: {fileID: 19827566}
 --- !u!198 &19827566

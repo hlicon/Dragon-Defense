@@ -102,10 +102,9 @@ public class ClickShoot : MonoBehaviour {
 		//Where we want to apply the force to
 
 		for(int i = 0; i < Dir.Length; i++){
-			float tempI = i;
 			float tempLength = Dir.Length;
-			float splitShot = tempI/tempLength;
-			Vector2 splitOffset = new Vector2(splitShot + Random.value, splitShot + Random.value);
+			float splitShot = i/tempLength;
+			Vector2 splitOffset = new Vector2(splitShot, splitShot);
 			Dir[i] = mouseClickPosition - shotSpawnPos - splitOffset;
 
 			if(Dir[i].x > 4f)

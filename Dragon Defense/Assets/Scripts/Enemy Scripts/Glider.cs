@@ -18,6 +18,7 @@ public class Glider : EnemyClass {
         sinAmp = Random.Range(0.5f, 3.0f);
         isMelee = false;
         rb = GetComponent<Rigidbody2D>();
+		spriteRend = GetComponent<SpriteRenderer>();
         velocity = rb.velocity;
 		moveSpeed = startMoveSpeed;
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>()); //this isn't working

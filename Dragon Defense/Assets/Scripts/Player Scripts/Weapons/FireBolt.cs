@@ -27,10 +27,6 @@ public class FireBolt : ShotClass {
 		PauseCheck();
 	}
 
-	void OnTriggerEnter2D(Collider2D col) {
-		OnHit (col);
-	}
-
 	private void PauseCheck(){
 		if(!paused){
 			if(rigbod.velocity == Vector2.zero && wasPaused){

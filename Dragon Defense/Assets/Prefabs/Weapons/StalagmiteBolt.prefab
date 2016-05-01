@@ -134,14 +134,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shotName: Stalagmite
-  damage: 15
   timeAlive: 5
+  weaponColorNumber: 4
   canRoll: 0
   canCollideWithShots: 0
   lobShot: 0
   amountToFire: 1
-  velocity: {x: 0, y: 0}
-  weaponColorNumber: 4
+  damage: 15
+  damageMultiplier: 1
+  affectType: 3
+  affectDamage: 0
+  affectTime: 3
+  affectDamageMultiplier: 0
+  affectTimeMultiplier: 1
   trailParticles: {fileID: 19857516}
   burstParticles: {fileID: 19891288}
 --- !u!198 &19857516
