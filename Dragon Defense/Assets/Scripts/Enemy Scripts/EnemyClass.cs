@@ -89,14 +89,14 @@ public class EnemyClass : MonoBehaviour {
 
 	public void OnAffect(GameObject col, string affectType, float affectDamage, float affectTime){
 		if(col.gameObject == gameObject){
-		switch(affectType){
-			case "Fire": firedValues = FireDamage(affectDamage, affectTime, 0); fired = true;
-				spriteRend.color = Color.red; firedParticles.Play(); break;
-			case "Slow": slowedValue = SlowDown(affectTime); slowed = true;
-				spriteRend.color = Color.cyan; slowedParticles.Play(); break;
-			case "Stun": stunnedValue = DoStun(affectTime); stunned = true;
-				spriteRend.color = Color.yellow; stunnedParticles.Play(); break;
+			if(affectType.Contains("Fire")){ firedValues = FireDamage(affectDamage, affectTime, 0); fired = true;
+				spriteRend.color = Color.red; firedParticles.Play();}
+			
+			if(affectType.Contains("Slow")){ slowedValue = SlowDown(affectTime); slowed = true;
+				spriteRend.color = Color.cyan; slowedParticles.Play();
 			}
+			if(affectType.Contains("Stun")){ stunnedValue = DoStun(affectTime); stunned = true;
+				spriteRend.color = Color.yellow; stunnedParticles.Play(); }
 		}
 	}
 
