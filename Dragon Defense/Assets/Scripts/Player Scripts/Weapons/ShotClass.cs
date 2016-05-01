@@ -9,11 +9,11 @@ public class ShotClass : MonoBehaviour {
 	public bool canRoll; //Can it roll on the ground? (not sure what this will be for quite yet)
 	public bool canCollideWithShots; //Can it collide with other shots?
 	public bool lobShot; //Will it lob, or be a straight shot?
+	public string affectType;
 	[Header("Upgrade Values")]
 	public int amountToFire = 1; //Amount of shots to fire (increased with upgrade system etc)
 	public float damage; //Damage the weapon deals
 	public float damageMultiplier; //How much the weapon's damage is multiplied by
-	public int affectType; //0 is DOT Fire, 1 is DOT poison, 2 is Slowdown, 3 is Stun, 4 is Knockdown?
 	public float affectDamage; //How much damage the affect will have on the enemy, if any.
 	public float affectTime; //How long the affect will last
 	public float affectDamageMultiplier; //How much the affect damage is multiplied by, if any.
@@ -32,7 +32,7 @@ public class ShotClass : MonoBehaviour {
 	public delegate void DamageEvent(float damage, GameObject col, int weaponNumber, Vector3 shotPosition);
 	public static event DamageEvent OnDamage;
 
-	public delegate void AffectEvent(GameObject col, int affectType, float affectDamage, float affectTime);
+	public delegate void AffectEvent(GameObject col, string affectType, float affectDamage, float affectTime);
 	public static event AffectEvent OnAffect;
 
 	protected float startTimeAlive;

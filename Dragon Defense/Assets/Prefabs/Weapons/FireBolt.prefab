@@ -139,10 +139,10 @@ MonoBehaviour:
   canRoll: 0
   canCollideWithShots: 0
   lobShot: 1
+  affectType: Fire
   amountToFire: 1
   damage: 10
   damageMultiplier: 1
-  affectType: 0
   affectDamage: 1
   affectTime: 3
   affectDamageMultiplier: 1
