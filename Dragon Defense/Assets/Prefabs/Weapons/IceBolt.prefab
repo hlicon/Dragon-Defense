@@ -141,6 +141,7 @@ MonoBehaviour:
   lobShot: 1
   affectType: Slow
   amountToFire: 1
+  cooldown: 0.5
   damage: 5
   damageMultiplier: 1
   affectDamage: 0

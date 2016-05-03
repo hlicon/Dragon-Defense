@@ -12,6 +12,7 @@ public class ShotClass : MonoBehaviour {
 	public string affectType;
 	[Header("Upgrade Values")]
 	public int amountToFire = 1; //Amount of shots to fire (increased with upgrade system etc)
+	public float cooldown;
 	public float damage; //Damage the weapon deals
 	public float damageMultiplier; //How much the weapon's damage is multiplied by
 	public float affectDamage; //How much damage the affect will have on the enemy, if any.

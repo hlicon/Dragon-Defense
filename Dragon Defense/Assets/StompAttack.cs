@@ -43,7 +43,7 @@ public class StompAttack : ShotClass {
 		}
 		}
 	}
-
+		
 	void OnTriggerEnter2D(Collider2D col){
 		//Override Shotclass trigger enter
 		if(col.tag.Equals("Ground") && attacked){

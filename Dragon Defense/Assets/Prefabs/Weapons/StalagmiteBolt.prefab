@@ -141,6 +141,7 @@ MonoBehaviour:
   lobShot: 0
   affectType: Stun
   amountToFire: 1
+  cooldown: 0
   damage: 15
   damageMultiplier: 1
   affectDamage: 0

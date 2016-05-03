@@ -9,9 +9,10 @@ public class ClickShoot : MonoBehaviour {
 	private int selection = 0;
 	private float power;
 	private float angle;
-	private float stompWait;
+	private float shakeWait;
 	private Vector2 shotSpawnPos;
 	private Camera mainCam;
+	private GameStateManager gameStateManager;
 
 	public Transform shotSpawn;
 
@@ -24,6 +25,9 @@ public class ClickShoot : MonoBehaviour {
 
 	public delegate void SelectionEvent(int selection);
 	public static event SelectionEvent OnSelectionChanged;
+
+	public delegate void ShootEvent(int selection, float cooldown);
+	public static event ShootEvent OnShoot;
 
 	#region Event Subscriptions
 	void OnEnable(){
@@ -43,6 +47,7 @@ public class ClickShoot : MonoBehaviour {
 	void Start(){
 		canShoot = true;
 		shotSpawnPos = shotSpawn.transform.position;
+		gameStateManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameStateManager>();
 
 		Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Shot")); 
 		//Ignores the shot layer so the player doesn't get pushed around by the shots
@@ -84,9 +89,9 @@ public class ClickShoot : MonoBehaviour {
 				shotTimer = .5f;
 				canShoot = true;
 		}
-		if(stompWait > 0){
-			stompWait -=Time.deltaTime;
-			if(stompWait <= 0){
+		if(shakeWait > 0){
+			shakeWait -=Time.deltaTime;
+			if(shakeWait <= 0){
 				camShake();
 			}
 		}
@@ -113,7 +118,7 @@ public class ClickShoot : MonoBehaviour {
 				Dir[i].y = 4f + splitShot;
 		}
 		//Limit the distance so we don't fire too far
-
+		if(gameStateManager.weaponCDUI[selection].cooldown <= .01)
 		FireWeapon(Dir); //After we've "calculated" the distance we're going to fire the shot
 	}
 
@@ -127,20 +132,23 @@ public class ClickShoot : MonoBehaviour {
 		clone.GetComponent<Rigidbody2D>().AddForce(Dir[i] + Dir[i], ForceMode2D.Impulse);
 		clone.GetComponent<Collider2D>().enabled = true;
 		//Applying the force we passed in from calculating
+			if(OnShoot != null){
+				OnShoot(selection, cloneShotClass.cooldown);
+			}
 
 		if(!cloneShotClass.lobShot){
 			clone.GetComponent<Rigidbody2D>().gravityScale = 0; //Turn gravity off for straight shots
 		}
 		if(cloneShotClass.shotName.Equals("Stomp")){
 			//play stomp animation
-			stompWait = .5f;
+			shakeWait = .5f;
 		}
 		}
 	}
 
 	private void camShake(){
 		mainCam.GetComponent<CameraShake>().StartShake();
-		stompWait = 0;
+		shakeWait = 0;
 	}
 
 	public void GetSelection(int newSelection){ //Setting selection to the selected shot in the Shots array
