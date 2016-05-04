@@ -8,14 +8,23 @@ public class WeaponCoolDownUI : MonoBehaviour {
 	public float cooldown;
 	public float startCooldown;
 	private float fillAmount;
+	public bool hasWeapon;
 
 	void Start(){
 		CDImage = transform.Find("Image - Cooldown").GetComponent<Image>();
+
+		if (transform.Find ("Image - Weapon").GetComponent<Image>().sprite == null) {
+			hasWeapon = false;
+		} else {
+			hasWeapon = true;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		fillAmount = cooldown/startCooldown;
-		CDImage.fillAmount = fillAmount;
+		if (hasWeapon) {
+			fillAmount = cooldown / startCooldown;
+			CDImage.fillAmount = fillAmount;
+		}
 	}
 }
