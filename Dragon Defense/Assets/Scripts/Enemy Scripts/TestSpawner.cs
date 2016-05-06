@@ -3,8 +3,8 @@ using System.Collections;
 
 public class TestSpawner : MonoBehaviour
 {
-    public delegate void Event();
-    public static event Event OnNextWave;
+    public delegate void NextWaveEvent();
+    public static event NextWaveEvent OnNextWave;
 
     public float spawnFreq; //used for time between spawns
     public GameObject knight;

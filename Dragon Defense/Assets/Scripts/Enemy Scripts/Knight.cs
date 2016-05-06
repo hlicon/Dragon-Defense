@@ -52,8 +52,6 @@ public class Knight : EnemyClass {
         {
             nextAttack = Time.time + attackSpeed;
             other.gameObject.GetComponentInParent<PlayerController>().Damage(damage);
-            print("Player took " + damage + " damage.");
-            print("Player currently has " + other.gameObject.GetComponentInParent<PlayerController>().health + " health.");
         }
     }
 }

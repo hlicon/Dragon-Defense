@@ -34,7 +34,7 @@ public class GameOver : MonoBehaviour {
     void Start () {
         gameOver = false;
         testSpawner = GameObject.FindGameObjectWithTag("Respawn").GetComponentInParent<TestSpawner>();
-		//gameStateManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameStateManager>();
+		gameStateManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameStateManager>();
 	}
 
     public void OnDestroyPlayer()
@@ -46,14 +46,16 @@ public class GameOver : MonoBehaviour {
     {
 		gameOverObject.SetActive(true);
         gameOver = true;
-		GameStateManager.PauseGameEnd();
+		gameStateManager.PauseGameEnd();
     }
 
     public void EndWaveVictory()
     {
+		if(!gameOver){
         gameWinObject.GetComponentInChildren<Text>().text = "Wave " + testSpawner.CurrentWave + " complete!";
 		gameWinObject.SetActive(true);
-		GameStateManager.PauseGameEnd();
+		gameStateManager.PauseGameEnd();
+		}
     }
 
 	public void ReplayLevel(){

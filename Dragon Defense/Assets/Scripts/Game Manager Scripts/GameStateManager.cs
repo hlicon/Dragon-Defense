@@ -8,6 +8,7 @@ public class GameStateManager : MonoBehaviour {
 	public static event PauseEvent OnPause;
 	public static event PauseEvent OnRoundWin;
 	private bool paused;
+	private bool roundWon;
 
 	public GameObject pausePanel;
 	public WeaponCoolDownUI[] weaponCDUI;
@@ -17,27 +18,31 @@ public class GameStateManager : MonoBehaviour {
 	{
 		PlayerController.OnDestroyPlayer += OnDestroyPlayer;
 		ClickShoot.OnShoot += OnShoot;
+		TestSpawner.OnNextWave += OnNextWave;
 	}
 
 	void OnDisable()
 	{
 		PlayerController.OnDestroyPlayer -= OnDestroyPlayer;
 		ClickShoot.OnShoot -= OnShoot;
+		TestSpawner.OnNextWave -= OnNextWave;
 	}
 
 	void OnDestroy()
 	{
 		PlayerController.OnDestroyPlayer -= OnDestroyPlayer;
 		ClickShoot.OnShoot -= OnShoot;
+		TestSpawner.OnNextWave -= OnNextWave;
 	}
 	#endregion
 
 	void Start(){
 		Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Enemy"));
+		roundWon = false;
 	}
 
 	void Update(){
-		if(!paused){
+		if(!paused && !roundWon){
 			for(int i = 0; i < weaponCDUI.Length; i++){
 				weaponCDUI[i].cooldown -= Time.deltaTime;
 			}
@@ -52,9 +57,17 @@ public class GameStateManager : MonoBehaviour {
 		}
 	}
 
-	public static void PauseGameEnd(){
+	void OnNextWave(){
+		PauseGameEnd();
+		roundWon = false;
+	}
+
+	public void PauseGameEnd(){
 		if(OnRoundWin != null){
 			OnRoundWin();
+		}
+		if(roundWon == false){
+			roundWon = true;
 		}
 	}
 

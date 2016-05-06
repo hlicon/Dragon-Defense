@@ -32,8 +32,9 @@ public class EnemyClass : MonoBehaviour {
 	protected bool slowed;
 	private float slowedValue;
 	protected bool fired;
-	private Vector3 firedValues;
+	private Vector4 firedValues;
 	protected bool poisoned;
+	private Vector4 poisonedValues;
 	protected bool stunned;
 	private float stunnedValue;
 	protected SpriteRenderer spriteRend;
@@ -47,6 +48,7 @@ public class EnemyClass : MonoBehaviour {
 	public ParticleSystem slowedParticles;
 	public ParticleSystem firedParticles;
 	public ParticleSystem stunnedParticles;
+	public ParticleSystem poisonedParticles;
 
 	#region Event Subscriptions
 	void OnEnable(){
@@ -70,6 +72,7 @@ public class EnemyClass : MonoBehaviour {
     {
         paused = !paused;
         wasPaused = true;
+		ParticleToggle();
     }
 
 	public void OnDamage(float damageDealt, GameObject col, int weaponNumber, Vector3 shotPosition) //Used for taking damage
@@ -87,27 +90,52 @@ public class EnemyClass : MonoBehaviour {
 		}
     }
 
-	public void OnAffect(GameObject col, string affectType, float affectDamage, float affectTime){
+	public void OnAffect(GameObject col, string affectType, float affectDamage, float affectTime, float affectHitRate){
 		if(col.gameObject == gameObject){
-			if(affectType.Contains("Fire")){ firedValues = FireDamage(affectDamage, affectTime, 0); fired = true;
-				spriteRend.color = Color.red; firedParticles.Play();}
+			if(affectType.Contains("Fire")){ firedValues = FireDamage(affectDamage, affectTime, 0, affectHitRate);
+				fired = true; firedParticles.Play();}
 			
-			if(affectType.Contains("Slow")){ slowedValue = SlowDown(affectTime); slowed = true;
-				spriteRend.color = Color.cyan; slowedParticles.Play();
-			}
-			if(affectType.Contains("Stun")){ stunnedValue = DoStun(affectTime); stunned = true;
-				spriteRend.color = Color.yellow; stunnedParticles.Play(); }
+			if(affectType.Contains("Slow")){ slowedValue = SlowDown(affectTime);
+				slowed = true; slowedParticles.Play();}
+			
+			if(affectType.Contains("Stun")){ stunnedValue = DoStun(affectTime);
+				stunned = true; stunnedParticles.Play(); }
+			
+			if(affectType.Contains("Poison")) { poisonedValues = PoisonDamage(affectDamage, affectTime, 0, affectHitRate);
+				poisoned = true; poisonedParticles.Play();}
 		}
 	}
 
 	void LateUpdate(){
+		if(!paused){
 		CheckAffects();
+		}
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
 		if(col.name.Contains("Despawn")){
 			TestSpawner.pop--;
 			DespawnThis();
+		}
+	}
+
+	private void ParticleToggle(){
+		if(!paused){
+			if(slowedParticles.isPaused && slowed)
+				slowedParticles.Play();
+			if(firedParticles.isPaused && fired)
+				firedParticles.Play();
+			if(stunnedParticles.isPaused && stunned)
+				stunnedParticles.Play();
+			if(poisonedParticles.isPaused && poisoned)
+				poisonedParticles.Play();
+		}
+
+		if(paused){
+			slowedParticles.Pause();
+			firedParticles.Pause();
+			stunnedParticles.Pause();
+			poisonedParticles.Pause();
 		}
 	}
 
@@ -156,9 +184,8 @@ public class EnemyClass : MonoBehaviour {
 		clone.transform.SetAsFirstSibling();
 		clone.GetComponent<Text>().CrossFadeAlpha(1, 0f, false);
 		DamageTextMove cloneDTM = clone.GetComponent<DamageTextMove>();
-		cloneDTM.colorNumber = weaponNumber;
-		cloneDTM.damageDealt = damageDealt;
 		cloneDTM.movePosition = damageTextSpawn;
+		cloneDTM.StartCoroutine(cloneDTM.UpdateTextDisplay(weaponNumber, damageDealt));
 		clone.GetComponent<Text>().enabled = true;
 
 	}
@@ -168,14 +195,20 @@ public class EnemyClass : MonoBehaviour {
 			slowedValue = SlowDown(slowedValue);
 		}
 		if(fired){
-			firedValues = FireDamage(firedValues.x, firedValues.y, firedValues.z);
+			firedValues = FireDamage(firedValues.x, firedValues.y, firedValues.z, firedValues.w);
 		}
 		if(stunned){
 			stunnedValue = DoStun(stunnedValue);
 		}
+		if(poisoned){
+			poisonedValues = PoisonDamage(poisonedValues.x, poisonedValues.y, poisonedValues.z, poisonedValues.w);
+		}
 	}
 
 	private float SlowDown(float slowTime){
+		if(spriteRend.color == Color.white){
+			spriteRend.color = Color.cyan;
+		}
 		if(slowTime >= 0 && !stunned){
 			moveSpeed = startMoveSpeed/2;
 		}
@@ -189,14 +222,25 @@ public class EnemyClass : MonoBehaviour {
 		return slowTime;
 	}
 
-	private Vector3 FireDamage(float affectDamage, float affectTime, float attackRate){
+	private Vector4 FireDamage(float affectDamage, float affectTime, float attackRate, float affectHitRate){
 		attackRate += Time.deltaTime;
-		if(attackRate >= 1){
+		if(spriteRend.color == Color.white){
+			spriteRend.color = Color.red;
+		}
+		if(attackRate >= affectHitRate){
 			health -= affectDamage;
+			UpdateHealthBar();
 			Vector2 damageTextSpawn = transform.position;
 			damageTextSpawn.y += GetComponent<SpriteRenderer>().sprite.bounds.size.y/2;
 			SpawnDamageText(affectDamage, 0, damageTextSpawn);
 			attackRate = 0;
+			if(health <= 0){
+				if(OnDestroyEnemy != null){
+					OnDestroyEnemy(points);
+					SpawnPointText(points);
+					DespawnThis();
+				}
+			}
 		}
 
 		affectTime -= Time.deltaTime;
@@ -205,10 +249,43 @@ public class EnemyClass : MonoBehaviour {
 			spriteRend.color = Color.white;
 			firedParticles.Stop();
 		}
-		return new Vector3(affectDamage, affectTime, attackRate);
+		return new Vector4(affectDamage, affectTime, attackRate, affectHitRate);
+	}
+
+	private Vector4 PoisonDamage(float affectDamage, float affectTime, float attackRate, float affectHitRate){
+		attackRate += Time.deltaTime;
+		if(spriteRend.color == Color.white){
+			spriteRend.color = Color.green;
+		}
+		if(attackRate >= affectHitRate){
+			health -= affectDamage;
+			UpdateHealthBar();
+			Vector2 damageTextSpawn = transform.position;
+			damageTextSpawn.y += GetComponent<SpriteRenderer>().sprite.bounds.size.y/2;
+			SpawnDamageText(affectDamage, 2, damageTextSpawn);
+			attackRate = 0;
+			if(health <= 0){
+				if(OnDestroyEnemy != null){
+					OnDestroyEnemy(points);
+					SpawnPointText(points);
+					DespawnThis();
+				}
+			}
+		}
+
+		affectTime -= Time.deltaTime;
+		if(affectTime <= 0){
+			poisoned = false;
+			spriteRend.color = Color.white;
+			poisonedParticles.Stop();
+		}
+		return new Vector4(affectDamage, affectTime, attackRate, affectHitRate);
 	}
 
 	private float DoStun(float stunTime){
+		if(spriteRend.color == Color.white){
+			spriteRend.color = Color.yellow;
+		}
 		if(stunTime >= 0){
 			moveSpeed -= Time.deltaTime * 5;
 			if(moveSpeed <= 0)

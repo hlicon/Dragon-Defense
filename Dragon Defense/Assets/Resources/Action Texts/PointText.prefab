@@ -31,6 +31,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointDisplay: 0
+  movePosition: {x: 0, y: 0}
 --- !u!114 &11406996
 MonoBehaviour:
   m_ObjectHideFlags: 1

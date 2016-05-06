@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
@@ -10,11 +11,20 @@ public class PlayerController : MonoBehaviour {
 
     [Header("Player Values")]
 	public float speed; //Speed of the player
-    public float health;
 
 	private Rigidbody2D rb; //Rigidbody component
 	private bool paused;
 	private bool roundWin;
+
+	[Header("Health Bar Values")]
+	public float health;
+	private float startHealth;
+	public Slider healthBar;
+	public Gradient healthColorGradient;
+	public Image healthBarColor;
+	private float healthPercent;
+
+	private GameObject damageText;
 
 	#region Event Subscriptions
 	void OnEnable(){
@@ -33,7 +43,12 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		startHealth = health;
+		healthPercent = health/startHealth;
+		healthBar.maxValue = startHealth;
+		UpdateHealthBar();
 		rb = GetComponent<Rigidbody2D> ();
+		damageText = (GameObject)Resources.Load("Action Texts/DamageText");
 		paused = false;
 	}
 
@@ -52,19 +67,17 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update() {
-        if(health <= 0)
-        {
-            if(OnDestroyPlayer != null)
-            {
-                OnDestroyPlayer();
-				Destroy(this.gameObject);
-            }
-        }
 
 		if(Input.GetKeyDown("p") && !roundWin)
         {
             gsm.PauseGame();
         }
+	}
+
+	private void UpdateHealthBar(){
+		healthBar.value = health;
+		healthPercent = health/healthBar.maxValue;
+		healthBarColor.color = healthColorGradient.Evaluate(healthPercent);
 	}
 
 	public void OnRoundWin(){
@@ -79,5 +92,28 @@ public class PlayerController : MonoBehaviour {
     public void Damage(float dmg)
     {
         health -= dmg;
+		if(health <= 0){
+			if(OnDestroyPlayer != null)
+				OnDestroyPlayer();
+			Destroy(gameObject);
+			healthBarColor.enabled = false;
+		}
+		SpawnDamageText(dmg, transform.Find("Breath Point").position);
+		UpdateHealthBar();
     }
+
+	private void SpawnDamageText(float damageDealt, Vector3 shotPosition){
+		Vector2 damageTextSpawn = shotPosition;
+		damageTextSpawn = Camera.main.WorldToScreenPoint(damageTextSpawn);
+		GameObject clone = (GameObject)Pooling.Spawn(damageText, damageTextSpawn, Quaternion.identity);
+		clone.GetComponent<Text>().enabled = false;
+		clone.transform.SetParent(GameObject.FindGameObjectWithTag("ScreenSpaceCanvas").transform); 
+		clone.transform.SetAsFirstSibling();
+		clone.GetComponent<Text>().CrossFadeAlpha(1, 0f, false);
+		DamageTextMove cloneDTM = clone.GetComponent<DamageTextMove>();
+		cloneDTM.movePosition = damageTextSpawn;
+		cloneDTM.StartCoroutine(cloneDTM.UpdateTextDisplay(10, damageDealt));
+		clone.GetComponent<Text>().enabled = true;
+
+	}
 }

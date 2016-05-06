@@ -7,6 +7,7 @@ public class ScoreUpdate : MonoBehaviour {
 	
 	public GameObject scoreObject;
 	private Text scoreText;
+	private GameStateManager gameStateManager;
 
     private static int totalEnemiesKilled;
     public static int TotalEnemiesKilled
@@ -52,6 +53,7 @@ public class ScoreUpdate : MonoBehaviour {
 	void Start(){
 		scoreText = scoreObject.GetComponent<Text>();
         scoreText.text = "Score: " + score;
+		gameStateManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameStateManager>();
 	}
 
 
@@ -65,6 +67,5 @@ public class ScoreUpdate : MonoBehaviour {
     public void OnNextWave()
     {
         waveEnemiesKilled = 0;
-        GameStateManager.PauseGameEnd();
     }
 }

@@ -4,7 +4,6 @@ using System.Collections;
 public class ClickShoot : MonoBehaviour {
 
 	private Vector2 mouseClickPosition;
-	private bool canShoot;
 	private bool paused;
 	private int selection = 0;
 	private float power;
@@ -45,7 +44,6 @@ public class ClickShoot : MonoBehaviour {
 	#endregion
 
 	void Start(){
-		canShoot = true;
 		shotSpawnPos = shotSpawn.transform.position;
 		gameStateManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameStateManager>();
 
@@ -55,7 +53,7 @@ public class ClickShoot : MonoBehaviour {
 
 		mainCam = Camera.main;
 
-		for(int i = 0; i < 2; i++){
+		for(int i = 0; i < 3; i++){
 			Pooling.Preload(Shots[i], 20);
 		}
 		//temp
@@ -66,7 +64,7 @@ public class ClickShoot : MonoBehaviour {
 	void Update(){
 		if(!paused){
 			GetSelection(selection);
-			TimerSet();
+			ShakeCheck();
 			GetMouseInput();
 		}
 	}
@@ -75,20 +73,14 @@ public class ClickShoot : MonoBehaviour {
 		if(Input.GetMouseButton(0)){ //Is the mouse button being held down?
 			mouseClickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			//Setting mouse position so we don't have to call >>^^ everytime
-			if(canShoot && selection >= 0 && mouseClickPosition.y >= -2.0f){ //Do we have a proper selection and can we shoot?
+			if(selection >= 0 && mouseClickPosition.y >= -2.0f){ //Do we have a proper selection and can we shoot?
 				CalculateShot(); //If so, let's "calculate" where we're firing
 			}
 		} 
 	}
 
 	//Removed the ShootWait IEnumerator to this better function
-	private void TimerSet(){
-		if(canShoot == false)
-		shotTimer -= Time.deltaTime;
-		if(shotTimer <= 0f){
-				shotTimer = .5f;
-				canShoot = true;
-		}
+	private void ShakeCheck(){
 		if(shakeWait > 0){
 			shakeWait -=Time.deltaTime;
 			if(shakeWait <= 0){
@@ -124,7 +116,6 @@ public class ClickShoot : MonoBehaviour {
 
 	private void FireWeapon(Vector2[] Dir){
 		for(int i = 0; i < Dir.Length; i++){
-		canShoot = false;
 		GameObject clone = (GameObject)Pooling.Spawn(Shots[selection], shotSpawnPos, Quaternion.identity);
 		//Spawn the shot from the selection
 		ShotClass cloneShotClass = clone.GetComponent<ShotClass>();

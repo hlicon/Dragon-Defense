@@ -19,6 +19,7 @@ public class ShotClass : MonoBehaviour {
 	public float affectTime; //How long the affect will last
 	public float affectDamageMultiplier; //How much the affect damage is multiplied by, if any.
 	public float affectTimeMultiplier; //How much the affect time is multiplied by, if any.
+	public float affectHitRate;
 	protected Vector2 velocity;
 	protected Rigidbody2D rigbod;
 	protected float gravity;
@@ -33,7 +34,7 @@ public class ShotClass : MonoBehaviour {
 	public delegate void DamageEvent(float damage, GameObject col, int weaponNumber, Vector3 shotPosition);
 	public static event DamageEvent OnDamage;
 
-	public delegate void AffectEvent(GameObject col, string affectType, float affectDamage, float affectTime);
+	public delegate void AffectEvent(GameObject col, string affectType, float affectDamage, float affectTime, float affectHitRate);
 	public static event AffectEvent OnAffect;
 
 	protected float startTimeAlive;
@@ -62,7 +63,7 @@ public class ShotClass : MonoBehaviour {
 		if (OnAffect != null){
 			float tAffectDamage = affectDamage * damageMultiplier;
 			float tAffectTime = affectTime * affectTimeMultiplier;
-			OnAffect(col.gameObject, affectType, tAffectDamage, tAffectTime);
+			OnAffect(col.gameObject, affectType, tAffectDamage, tAffectTime, affectHitRate);
 		}
 		StartCoroutine(MoveWait()); //Need this so burstparticles are shown in correct area
 		//They were spawning after the move even though the play is called first? @_@

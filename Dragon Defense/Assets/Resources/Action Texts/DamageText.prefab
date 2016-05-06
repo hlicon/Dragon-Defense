@@ -33,7 +33,7 @@ MonoBehaviour:
   colors:
   - {r: 1, g: 0.10344831, b: 0, a: 1}
   - {r: 0, g: 0.66896534, b: 1, a: 1}
-  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0.61379313, g: 1, b: 0, a: 1}
   - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0.6544118, g: 0.515034, b: 0.14916737, a: 1}
   - {r: 0, g: 0, b: 0, a: 0}
@@ -41,6 +41,7 @@ MonoBehaviour:
   - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 1}
   damageDealt: 0
   colorNumber: 0
   movePosition: {x: 0, y: 0}
@@ -69,7 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -89,7 +90,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 10
+  m_Text: 0
 --- !u!222 &22289732
 CanvasRenderer:
   m_ObjectHideFlags: 1

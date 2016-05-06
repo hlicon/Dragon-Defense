@@ -68,9 +68,10 @@ public class DamageTextMove : MonoBehaviour {
 		}
 	}
 
-	void Update(){
-		text.color = colors[colorNumber];
-		text.text = damageDealt.ToString();
+	public IEnumerator UpdateTextDisplay(int number, float damage){
+		yield return new WaitForEndOfFrame();
+		text.color = colors[number];
+		text.text = damage.ToString();
 	}
 
 	private void RotateLeftRight(){
