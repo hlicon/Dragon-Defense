@@ -58,6 +58,7 @@ public class ClickShoot : MonoBehaviour {
 		}
 		//temp
 		Pooling.Preload(Shots[4], 20);
+		Pooling.Preload(Shots[5], 5);
 		Pooling.Preload(Stalags, 20);
 	}
 

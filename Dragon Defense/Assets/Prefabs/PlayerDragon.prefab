@@ -110,7 +110,7 @@ MonoBehaviour:
   - {fileID: 124252, guid: c51631435a8e6334289082f2df670515, type: 2}
   - {fileID: 150392, guid: 538e6e8eba731e94fb20eadfbc002b2a, type: 2}
   - {fileID: 138084, guid: 3a7278529d6b64c43b9796f6b6900369, type: 2}
-  - {fileID: 150392, guid: 538e6e8eba731e94fb20eadfbc002b2a, type: 2}
+  - {fileID: 149212, guid: 2153350c7a95fcc46a5bc3d0ba85ae4e, type: 2}
   - {fileID: 150392, guid: 538e6e8eba731e94fb20eadfbc002b2a, type: 2}
   - {fileID: 150392, guid: 538e6e8eba731e94fb20eadfbc002b2a, type: 2}
   - {fileID: 150392, guid: 538e6e8eba731e94fb20eadfbc002b2a, type: 2}
@@ -130,8 +130,8 @@ MonoBehaviour:
   gsm: {fileID: 0}
   speed: 600
   health: 50
-  healthBarSlider: {fileID: 0}
-  healthBarColor:
+  healthBar: {fileID: 0}
+  healthColorGradient:
     key0:
       serializedVersion: 2
       rgba: 4278190335
@@ -174,7 +174,7 @@ MonoBehaviour:
     atime7: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  healthBarImage: {fileID: 0}
+  healthBarColor: {fileID: 0}
 --- !u!212 &21200968
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -26,25 +26,4 @@ public class IceBolt : ShotClass {
 	void Update() {
 		PauseCheck();
 	}
-
-	private void PauseCheck(){
-		if(!paused){
-			if(rigbod.velocity == Vector2.zero && wasPaused){
-				trailParticles.Play();
-				if(burstParticles.particleCount > 0)
-					burstParticles.Play();
-				rigbod.velocity = velocity;
-				rigbod.gravityScale = gravity;
-			}
-			velocity = rigbod.velocity;
-			CheckTime();
-		} else {
-			wasPaused = false;
-			trailParticles.Pause();
-			burstParticles.Pause();
-			rigbod.velocity = Vector2.zero;
-			rigbod.gravityScale = 0;
-		}
-	}
-
 }

@@ -42,20 +42,27 @@ public class ShotClass : MonoBehaviour {
 	#region Event Subscriptions
 	void OnEnable(){
 		GameStateManager.OnPause += OnPause;
+		GameStateManager.OnRoundWin += OnRoundWin;
 	}
 	void OnDisable(){
 		GameStateManager.OnPause -= OnPause;
+		GameStateManager.OnRoundWin -= OnRoundWin;
 	}
 	void OnDestroy(){
 		GameStateManager.OnPause -= OnPause;
+		GameStateManager.OnRoundWin -= OnRoundWin;
 	}
 	#endregion
 
-	public void OnTriggerEnter2D(Collider2D col){
+	protected virtual void OnTriggerEnter2D(Collider2D col){
+		DoDamage(col);
+		StartCoroutine(MoveWait()); //Need this so burstparticles are shown in correct area
+		//They were spawning after the move even though the play is called first? @_@
+	}
+
+	protected void DoDamage(Collider2D col){
 		burstParticles.Play();
-
 		GetComponent<Collider2D>().enabled = false;
-
 		if (OnDamage != null) {
 			float tDamage = damage*damageMultiplier;
 			OnDamage(tDamage, col.gameObject, weaponColorNumber, transform.position);
@@ -65,11 +72,15 @@ public class ShotClass : MonoBehaviour {
 			float tAffectTime = affectTime * affectTimeMultiplier;
 			OnAffect(col.gameObject, affectType, tAffectDamage, tAffectTime, affectHitRate);
 		}
-		StartCoroutine(MoveWait()); //Need this so burstparticles are shown in correct area
-		//They were spawning after the move even though the play is called first? @_@
+
+		StartCoroutine(MoveWait());
 	}
 
-	private IEnumerator MoveWait(){
+	void OnRoundWin(){
+		StartCoroutine(MoveWait());
+	}
+
+	protected IEnumerator MoveWait(){
 		yield return new WaitForSeconds(.01f);
 		MoveShot();
 		GetComponent<Collider2D>().enabled = true;
@@ -78,7 +89,6 @@ public class ShotClass : MonoBehaviour {
 	public void MoveShot(){
 		transform.position = new Vector3(999,999,999);
 		trailParticles.Stop();
-		timeAlive = timeAlive/2;
 	}
 
 	public void OnPause(){
@@ -94,6 +104,32 @@ public class ShotClass : MonoBehaviour {
 			velocity = Vector2.zero;
 			rigbod.velocity = Vector2.zero;
 			Pooling.Despawn(gameObject);
+		}
+	}
+
+	protected void PauseCheck(){
+		if(!paused){
+			if(rigbod.velocity == Vector2.zero && wasPaused){
+				if(trailParticles != null)
+				trailParticles.Play();
+				if(burstParticles != null){
+					if(burstParticles.particleCount > 0)
+						burstParticles.Play();
+				}
+				rigbod.velocity = velocity;
+				rigbod.gravityScale = gravity;
+			}
+			velocity = rigbod.velocity;
+			CheckTime();
+		} else {
+			wasPaused = false;
+			if(trailParticles != null)
+			trailParticles.Pause();
+			if(burstParticles != null)
+			burstParticles.Pause();
+			rigbod.velocity = Vector2.zero;
+			rigbod.gravityScale = 0;
+			print("This is happened");
 		}
 	}
 }

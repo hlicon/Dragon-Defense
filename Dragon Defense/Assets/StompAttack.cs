@@ -18,6 +18,8 @@ public class StompAttack : ShotClass {
 		wasPaused = false;
 		amountToFire = 3;
 		rigbod = GetComponent<Rigidbody2D>();
+		velocity = rigbod.velocity;
+		gravity = rigbod.gravityScale;
 
 
 		//Stomp specifics
@@ -36,15 +38,15 @@ public class StompAttack : ShotClass {
 		if(attackWait > 0){
 			attackWait -= Time.deltaTime;
 			if(attackWait <= 0){
-					attacked = true;
+				attacked = true;
 				attackWait = startAttackwait;
-					SpawnStalags();
+				SpawnStalags();
 			}
 		}
 		}
 	}
 		
-	void OnTriggerEnter2D(Collider2D col){
+	protected override void OnTriggerEnter2D(Collider2D col){
 		//Override Shotclass trigger enter
 		if(col.tag.Equals("Ground") && attacked){
 			attacked = false;
@@ -63,20 +65,4 @@ public class StompAttack : ShotClass {
 		timeAlive = startTimeAlive;
 		Pooling.Despawn(gameObject);
 	}
-
-	private void PauseCheck(){
-		if(!paused){
-			if(rigbod.velocity == Vector2.zero && wasPaused){
-				rigbod.velocity = velocity;
-				rigbod.gravityScale = gravity;
-			}
-			velocity = rigbod.velocity;
-			CheckTime();
-		} else {
-			wasPaused = false;
-			rigbod.velocity = Vector2.zero;
-			rigbod.gravityScale = 0;
-		}
-	}
-
 }
