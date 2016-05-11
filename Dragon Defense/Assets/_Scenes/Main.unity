@@ -924,6 +924,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   startCooldown: 0
+  hasWeapon: 0
 --- !u!1 &486435363
 GameObject:
   m_ObjectHideFlags: 0
@@ -1061,6 +1062,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   startCooldown: 0
+  hasWeapon: 0
 --- !u!1 &490169491
 GameObject:
   m_ObjectHideFlags: 0
@@ -1352,7 +1354,6 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -1516,6 +1517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   startCooldown: 0
+  hasWeapon: 0
 --- !u!1 &671209147
 GameObject:
   m_ObjectHideFlags: 0
@@ -1942,6 +1944,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   startCooldown: 0
+  hasWeapon: 0
 --- !u!1 &704992721
 GameObject:
   m_ObjectHideFlags: 0
@@ -2321,6 +2324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   startCooldown: 0
+  hasWeapon: 0
 --- !u!1001 &918900741
 Prefab:
   m_ObjectHideFlags: 0
@@ -2364,6 +2368,10 @@ Prefab:
       propertyPath: m_SortingLayerID
       value: 1937085323
       objectReference: {fileID: 0}
+    - target: {fileID: 21237724, guid: 976989e7cf3d3d846ae7c7a7f533533b, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 976989e7cf3d3d846ae7c7a7f533533b, type: 2}
   m_IsPrefabParent: 0
@@ -2378,6 +2386,7 @@ GameObject:
   - 114: {fileID: 959672481}
   - 114: {fileID: 959672483}
   - 114: {fileID: 959672484}
+  - 114: {fileID: 959672485}
   m_Layer: 5
   m_Name: GameManager
   m_TagString: GameController
@@ -2450,6 +2459,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverObject: {fileID: 671209147}
   gameWinObject: {fileID: 1978949600}
+--- !u!114 &959672485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 959672480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9677f30b7c07574d8dfd3e4bfe42fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loot: {fileID: 199134, guid: 272a74859692d6d4cbb0817ac86b294d, type: 2}
 --- !u!1 &972735510
 GameObject:
   m_ObjectHideFlags: 0
@@ -2587,6 +2608,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   startCooldown: 0
+  hasWeapon: 0
 --- !u!1 &973610660
 GameObject:
   m_ObjectHideFlags: 0
@@ -2724,6 +2746,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   startCooldown: 0
+  hasWeapon: 0
 --- !u!1 &990257900
 GameObject:
   m_ObjectHideFlags: 0
@@ -3305,6 +3328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   startCooldown: 0
+  hasWeapon: 0
 --- !u!1 &1474008665
 GameObject:
   m_ObjectHideFlags: 0
@@ -3726,6 +3750,10 @@ Prefab:
       propertyPath: gsm
       value: 
       objectReference: {fileID: 959672481}
+    - target: {fileID: 11437222, guid: 3370456d957585a4fbe9788ddb84e5e2, type: 2}
+      propertyPath: health
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3370456d957585a4fbe9788ddb84e5e2, type: 2}
   m_IsPrefabParent: 0
@@ -4119,6 +4147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   startCooldown: 0
+  hasWeapon: 0
 --- !u!1 &1752514988
 GameObject:
   m_ObjectHideFlags: 0
@@ -4463,6 +4492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   startCooldown: 0
+  hasWeapon: 0
 --- !u!1 &1971407024
 GameObject:
   m_ObjectHideFlags: 0
