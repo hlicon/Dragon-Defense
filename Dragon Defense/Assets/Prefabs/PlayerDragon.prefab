@@ -114,8 +114,9 @@ MonoBehaviour:
   - {fileID: 150392, guid: 538e6e8eba731e94fb20eadfbc002b2a, type: 2}
   - {fileID: 150392, guid: 538e6e8eba731e94fb20eadfbc002b2a, type: 2}
   - {fileID: 150392, guid: 538e6e8eba731e94fb20eadfbc002b2a, type: 2}
-  - {fileID: 150392, guid: 538e6e8eba731e94fb20eadfbc002b2a, type: 2}
+  - {fileID: 177280, guid: ad7651532fec451408f957f17e741273, type: 2}
   Stalags: {fileID: 170930, guid: 63f3fe79ecc41de4a993fa8256de57a0, type: 2}
+  Lavas: {fileID: 150332, guid: eba1981195591de498b225a7b06e0b9b, type: 2}
 --- !u!114 &11437222
 MonoBehaviour:
   m_ObjectHideFlags: 1

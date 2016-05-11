@@ -61,8 +61,11 @@ public class ShotClass : MonoBehaviour {
 	}
 
 	protected void DoDamage(Collider2D col){
-		burstParticles.Play();
+		if(GetComponent<LavaBolt>() == null){
+			burstParticles.Play();
+		
 		GetComponent<Collider2D>().enabled = false;
+		}
 		if (OnDamage != null) {
 			float tDamage = damage*damageMultiplier;
 			OnDamage(tDamage, col.gameObject, weaponColorNumber, transform.position);
@@ -73,6 +76,7 @@ public class ShotClass : MonoBehaviour {
 			OnAffect(col.gameObject, affectType, tAffectDamage, tAffectTime, affectHitRate);
 		}
 
+		if(GetComponent<LavaBolt>() == null)
 		StartCoroutine(MoveWait());
 	}
 
@@ -107,7 +111,7 @@ public class ShotClass : MonoBehaviour {
 		}
 	}
 
-	protected void PauseCheck(){
+	protected virtual void PauseCheck(){
 		if(!paused){
 			if(rigbod.velocity == Vector2.zero && wasPaused){
 				if(trailParticles != null)
@@ -129,7 +133,6 @@ public class ShotClass : MonoBehaviour {
 			burstParticles.Pause();
 			rigbod.velocity = Vector2.zero;
 			rigbod.gravityScale = 0;
-			print("This is happened");
 		}
 	}
 }

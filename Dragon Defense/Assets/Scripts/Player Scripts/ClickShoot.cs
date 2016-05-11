@@ -21,6 +21,7 @@ public class ClickShoot : MonoBehaviour {
 	[Header("Weapons")]
 	public GameObject[] Shots;
 	public GameObject Stalags;
+	public GameObject Lavas;
 
 	public delegate void SelectionEvent(int selection);
 	public static event SelectionEvent OnSelectionChanged;
@@ -57,9 +58,12 @@ public class ClickShoot : MonoBehaviour {
 			Pooling.Preload(Shots[i], 20);
 		}
 		//temp
-		Pooling.Preload(Shots[4], 20);
+		Pooling.Preload(Shots[4], 5);
 		Pooling.Preload(Shots[5], 5);
-		Pooling.Preload(Stalags, 20);
+		Pooling.Preload(Stalags, 5);
+		Pooling.Preload(Shots[9], 5);
+		Pooling.Preload(Lavas, 5);
+
 	}
 
 	void Update(){
@@ -131,7 +135,7 @@ public class ClickShoot : MonoBehaviour {
 		if(!cloneShotClass.lobShot){
 			clone.GetComponent<Rigidbody2D>().gravityScale = 0; //Turn gravity off for straight shots
 		}
-		if(cloneShotClass.shotName.Equals("Stomp")){
+			if(cloneShotClass.shotName.Equals("Stomp") || cloneShotClass.shotName.Equals("Lava")){
 			//play stomp animation
 			shakeWait = .5f;
 		}

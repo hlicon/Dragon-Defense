@@ -1,17 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StompAttack : ShotClass {
+public class LavaAttack : ShotClass {
 
 	private float attackWait;
 	private float startAttackwait;
 	private Vector2 randSpawn;
 	private bool attacked;
-	public GameObject stalag;
+	public GameObject lava;
 
 
 	void Start(){
-		shotName = "Stomp";
 		timeAlive = 5f;
 		startTimeAlive = timeAlive;
 		paused = false;
@@ -34,18 +33,18 @@ public class StompAttack : ShotClass {
 	void Update(){
 		PauseCheck();
 		if(!paused){
-		CheckTime();
-		if(attackWait > 0){
-			attackWait -= Time.deltaTime;
-			if(attackWait <= 0){
-				attacked = true;
-				attackWait = startAttackwait;
-				SpawnStalags();
+			CheckTime();
+			if(attackWait > 0){
+				attackWait -= Time.deltaTime;
+				if(attackWait <= 0){
+					attacked = true;
+					attackWait = startAttackwait;
+					SpawnLava();
+				}
 			}
 		}
-		}
 	}
-		
+
 	protected override void OnTriggerEnter2D(Collider2D col){
 		//Override Shotclass trigger enter
 		if(col.tag.Equals("Ground") && attacked){
@@ -56,11 +55,14 @@ public class StompAttack : ShotClass {
 		}
 	}
 
-	private void SpawnStalags(){
-		randSpawn = new Vector2(Random.Range(-1, 13) + Random.value, Random.Range(8, 10) + Random.value);
-
-		GameObject clone = (GameObject)Pooling.Spawn(stalag, randSpawn, Quaternion.identity);
-		clone.GetComponent<StalagmiteBolt>().GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+	private void SpawnLava(){
+		randSpawn = new Vector2(Random.Range(-1, 13) + Random.value, Random.Range(-7, -5) + Random.value);
+		Vector3 spawnRotation = new Vector3(0, 0, 90);
+		GameObject clone = (GameObject)Pooling.Spawn(lava, randSpawn, Quaternion.Euler(spawnRotation));
+		clone.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+		clone.GetComponent<LavaBolt>().moveTimer = 0;
+		clone.GetComponent<LavaBolt>().stopMove = false;
+		clone.GetComponent<LavaBolt>().justSpawned = true;
 		attacked = false;
 		timeAlive = startTimeAlive;
 		Pooling.Despawn(gameObject);
