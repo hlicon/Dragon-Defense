@@ -52,8 +52,9 @@ public class GameOver : MonoBehaviour {
 		GameStateManager.PauseGameEnd();
     }
 
-    public void EndWaveVictory()
+	private IEnumerator EndWaveVictory()
     {		
+		yield return new WaitForEndOfFrame ();
         gameWinObject.GetComponentInChildren<Text>().text = "Wave " + testSpawner.CurrentWave + " complete!";
 		gameWinObject.SetActive(true);
 		lootManager.DisplayLoot ();
@@ -66,7 +67,7 @@ public class GameOver : MonoBehaviour {
 
 	public void OnDestroyEnemy(float dam){
 		if(ScoreUpdate.WaveEnemiesKilled >= testSpawner.CurrentWaveSize) {
-            EndWaveVictory();
+			StartCoroutine(EndWaveVictory());
 		}
 	}
 }

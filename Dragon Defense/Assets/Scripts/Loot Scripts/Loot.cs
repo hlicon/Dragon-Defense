@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class Loot : MonoBehaviour {
-	private ScoreUpdate scoreUpdate;
+	private ScoreUpdate scoreUpdateObject;
 	private string lootName;
 	public string LootName {
 		get { return lootName; }
@@ -22,7 +22,8 @@ public class Loot : MonoBehaviour {
 
 	void Start () {
 		//RandomizeLootName ();
-		scoreUpdate = GetComponent<ScoreUpdate>();
+		// = GetComponent<GameStateManager>().GetComponent<ScoreUpdate>();
+		scoreUpdateObject = GameObject.FindGameObjectWithTag("GameController").GetComponent<ScoreUpdate>();
 	}
 
 	public void RandomizeLootName() {
@@ -30,7 +31,7 @@ public class Loot : MonoBehaviour {
 		SetLootType (lootNo);
 	}
 
-	public void SetLootType(int lootNo) {
+	public void SetLootType(int lootNo) { 
 		if (lootNo >= 0 && lootNo < lootTypeList.Length) {
 			lootName = lootTypeList [lootNo];
 			lootVal = lootValueList [lootNo];
@@ -43,7 +44,7 @@ public class Loot : MonoBehaviour {
 	}
 
 	public void SellItem() {
-		scoreUpdate.SellItem (lootVal);
-		gameObject.SetActive (false);
+		scoreUpdateObject.SellItem (lootVal);
+		Destroy (this.gameObject);
 	}
 }
