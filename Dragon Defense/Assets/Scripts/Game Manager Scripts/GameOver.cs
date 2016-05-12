@@ -8,6 +8,7 @@ public class GameOver : MonoBehaviour {
     public GameObject gameOverObject;
 	public GameObject gameWinObject;
     private TestSpawner testSpawner;
+	private LootManager lootManager;
 	private GameStateManager gameStateManager;
 	private bool gameOver;
 
@@ -34,6 +35,8 @@ public class GameOver : MonoBehaviour {
     void Start () {
         gameOver = false;
         testSpawner = GameObject.FindGameObjectWithTag("Respawn").GetComponentInParent<TestSpawner>();
+		lootManager = GetComponent<LootManager> ();
+
 		//gameStateManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameStateManager>();
 	}
 
@@ -50,9 +53,10 @@ public class GameOver : MonoBehaviour {
     }
 
     public void EndWaveVictory()
-    {
+    {		
         gameWinObject.GetComponentInChildren<Text>().text = "Wave " + testSpawner.CurrentWave + " complete!";
 		gameWinObject.SetActive(true);
+		lootManager.DisplayLoot ();
 		GameStateManager.PauseGameEnd();
     }
 
@@ -62,7 +66,7 @@ public class GameOver : MonoBehaviour {
 
 	public void OnDestroyEnemy(float dam){
 		if(ScoreUpdate.WaveEnemiesKilled >= testSpawner.CurrentWaveSize) {
-            EndWaveVictory();            
+            EndWaveVictory();
 		}
 	}
 }
