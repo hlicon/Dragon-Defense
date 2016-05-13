@@ -2674,7 +2674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 1971152739}
-  loot: {fileID: 178380, guid: 197078d3bf0ff0c4ca3b394b125a9a07, type: 2}
+  loot: {fileID: 175426, guid: 197078d3bf0ff0c4ca3b394b125a9a07, type: 2}
   contentPanel: {fileID: 1971152738}
 --- !u!1 &972735510
 GameObject:

@@ -63,7 +63,16 @@ public class LootManager : MonoBehaviour {
 
 	public void DisplayLoot() {
 		while (lootList.Count > 0) {
+			Loot temp = lootList.Peek ().GetComponent<Loot> ();
+			string lootName = temp.LootName;
+			int lootVal = temp.LootVal;
+
 			GameObject nextItem = Instantiate(lootList.Pop ()) as GameObject;
+
+			temp = nextItem.GetComponent<Loot> ();
+
+			temp.SetLootName (lootName);
+			temp.SetLootVal (lootVal);
 
 			nextItem.transform.SetParent (panel, false);
 		}

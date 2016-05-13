@@ -43,6 +43,14 @@ public class Loot : MonoBehaviour {
 		print(lootName);
 	}
 
+	public void SetLootName(string name) {
+		lootName = name;
+	}
+
+	public void SetLootVal(int val) {
+		lootVal = val;
+	}
+
 	public void SellItem() {
 		scoreUpdateObject.SellItem (lootVal);
 		Destroy (this.gameObject);

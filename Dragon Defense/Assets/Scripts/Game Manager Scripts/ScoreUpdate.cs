@@ -25,7 +25,7 @@ public class ScoreUpdate : MonoBehaviour {
 	{
 		get { return score; }
 	}
-	public static float gold; //debug
+	private static float gold; //debug
 	private static float Gold
 	{
 		get { return gold; }
@@ -36,20 +36,20 @@ public class ScoreUpdate : MonoBehaviour {
 	{
         TestSpawner.OnNextWave += OnNextWave;
 		EnemyClass.OnDestroyEnemy += OnDestroyEnemy;
-		LootManager.OnSellItem += OnSellItem;
+		//LootManager.OnSellItem += OnSellItem;
 	}
 	void OnDisable()
 	{
         TestSpawner.OnNextWave -= OnNextWave;
         EnemyClass.OnDestroyEnemy -= OnDestroyEnemy;
-		LootManager.OnSellItem -= OnSellItem;
+		//LootManager.OnSellItem -= OnSellItem;
 
 	}
 	void OnDestroy()
 	{
         TestSpawner.OnNextWave -= OnNextWave;
         EnemyClass.OnDestroyEnemy -= OnDestroyEnemy;
-		LootManager.OnSellItem -= OnSellItem;
+		//LootManager.OnSellItem -= OnSellItem;
 	}
 	#endregion
 
@@ -81,13 +81,14 @@ public class ScoreUpdate : MonoBehaviour {
         GameStateManager.PauseGameEnd();
     }
 
-	void OnSellItem(float value) {
+	/*void OnSellItem(float value) {
 		gold += value;
 		goldText.text = "Hoard Worth: " + gold;
-	}
+	}*/
 
-	public void SellItem(float value) {
+	public void SellItem(int value) {
 		gold += value;
 		goldText.text = "Hoard Worth: " + gold;
+		print (gold);
 	}
 }
