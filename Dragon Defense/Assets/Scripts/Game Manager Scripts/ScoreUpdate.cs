@@ -89,6 +89,5 @@ public class ScoreUpdate : MonoBehaviour {
 		OnSellItem();
 		gold += value;
 		goldText.text = "Hoard Worth: " + gold;
-		print (gold);
 	}
 }

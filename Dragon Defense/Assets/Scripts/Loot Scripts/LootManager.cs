@@ -66,7 +66,6 @@ public class LootManager : MonoBehaviour {
 	}
 
 	public void OnSellItem(){
-		print("This happened");
 		if(menuScrollbar.activeSelf == false){
 			menuFitter.enabled = false;
 		}
