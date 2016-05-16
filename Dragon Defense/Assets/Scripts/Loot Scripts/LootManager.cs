@@ -9,11 +9,12 @@ public class LootManager : MonoBehaviour {
 	static private Stack<GameObject> lootList;
 	static private GameObject[] lootTypeList;
 
-	public delegate void Event(float value);
-	public static event Event OnSellItem;
-
 	[SerializeField] private GameObject loot;
 	[SerializeField] private GameObject contentPanel;
+
+	[SerializeField] private ContentSizeFitter menuFitter;
+	[SerializeField] private GameObject menuScrollbar;
+
 	const float LOOT_CHANCE = 60; //will alter later
 	static Vector2 lootSpawn = new Vector2(9999, 9999);
 
@@ -22,18 +23,21 @@ public class LootManager : MonoBehaviour {
 	{
 		EnemyClass.OnDestroyEnemy += OnDestroyEnemy;
 		TestSpawner.OnNextWave += OnNextWave;
+		ScoreUpdate.OnSellItem += OnSellItem;
 	}
 
 	void OnDisable()
 	{
 		EnemyClass.OnDestroyEnemy -= OnDestroyEnemy;
 		TestSpawner.OnNextWave -= OnNextWave;
+		ScoreUpdate.OnSellItem -= OnSellItem;
 	}
 
 	void OnDestroy()
 	{
 		EnemyClass.OnDestroyEnemy -= OnDestroyEnemy;
 		TestSpawner.OnNextWave -= OnNextWave;
+		ScoreUpdate.OnSellItem -= OnSellItem;
 	}
 	#endregion
 
@@ -61,7 +65,19 @@ public class LootManager : MonoBehaviour {
 		print (lootList.Peek ().GetComponent<Loot> ().LootName);
 	}
 
+	public void OnSellItem(){
+		print("This happened");
+		if(menuScrollbar.activeSelf == false){
+			menuFitter.enabled = false;
+		}
+	}
+
 	public void DisplayLoot() {
+		if(lootList.Count > 6)
+			menuFitter.enabled = true;
+		else 
+			menuFitter.enabled = false;
+		
 		while (lootList.Count > 0) {
 			Loot temp = lootList.Peek ().GetComponent<Loot> ();
 			string lootName = temp.LootName;
@@ -82,7 +98,7 @@ public class LootManager : MonoBehaviour {
 		lootList.Clear ();
 
 		foreach (Transform child in contentPanel.transform) {
-			GameObject.Destroy (child.gameObject);
+			Destroy(child.gameObject);
 		}
 	}
 }

@@ -53,6 +53,6 @@ public class Loot : MonoBehaviour {
 
 	public void SellItem() {
 		scoreUpdateObject.SellItem (lootVal);
-		Destroy (this.gameObject);
+		Destroy(this.gameObject);
 	}
 }

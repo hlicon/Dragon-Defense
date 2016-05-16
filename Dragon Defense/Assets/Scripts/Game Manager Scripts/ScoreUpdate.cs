@@ -32,6 +32,9 @@ public class ScoreUpdate : MonoBehaviour {
 		get { return gold; }
 	}
 
+	public delegate void SellEvent();
+	public static event SellEvent OnSellItem;
+
 	#region Event Subscriptions
 	void OnEnable()
 	{
@@ -82,12 +85,8 @@ public class ScoreUpdate : MonoBehaviour {
         waveEnemiesKilled = 0;
     }
 
-	/*void OnSellItem(float value) {
-		gold += value;
-		goldText.text = "Hoard Worth: " + gold;
-	}*/
-
 	public void SellItem(int value) {
+		OnSellItem();
 		gold += value;
 		goldText.text = "Hoard Worth: " + gold;
 		print (gold);

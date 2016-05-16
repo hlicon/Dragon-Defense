@@ -863,7 +863,7 @@ RectTransform:
   m_Father: {fileID: 494802517}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -989,7 +989,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 298084328}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 1741964061, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -1012,7 +1012,7 @@ MonoBehaviour:
     m_Right: 100
     m_Top: 5
     m_Bottom: 5
-  m_ChildAlignment: 0
+  m_ChildAlignment: 7
   m_Spacing: 30
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
@@ -1106,8 +1106,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 518.3, y: -192.53339}
-  m_SizeDelta: {x: 1036.6, y: 10}
+  m_AnchoredPosition: {x: 518.3, y: -192.34}
+  m_SizeDelta: {x: 1037, y: 384.68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &316540600
 GameObject:
@@ -2151,7 +2151,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 14, y: 187.87}
-  m_SizeDelta: {x: 426.99387, y: 56.44172}
+  m_SizeDelta: {x: 433.0632, y: 57.050243}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &688238996
 MonoBehaviour:
@@ -2576,7 +2576,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -15}
-  m_SizeDelta: {x: 14.601227, y: 8.619629}
+  m_SizeDelta: {x: 11.701782, y: 7.609398}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &719927254
 MonoBehaviour:
@@ -3092,6 +3092,8 @@ MonoBehaviour:
   panel: {fileID: 298084335}
   loot: {fileID: 175426, guid: 197078d3bf0ff0c4ca3b394b125a9a07, type: 2}
   contentPanel: {fileID: 298084328}
+  menuFitter: {fileID: 298084329}
+  menuScrollbar: {fileID: 1057897049}
 --- !u!1 &972735510
 GameObject:
   m_ObjectHideFlags: 0
@@ -3580,9 +3582,9 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 224005485}
   m_HandleRect: {fileID: 224005483}
-  m_Direction: 3
-  m_Value: 0
-  m_Size: 1
+  m_Direction: 2
+  m_Value: 0.9852941
+  m_Size: 0.9999973
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
