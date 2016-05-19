@@ -863,7 +863,7 @@ RectTransform:
   m_Father: {fileID: 494802517}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3580,7 +3580,7 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 224005485}
   m_HandleRect: {fileID: 224005483}
-  m_Direction: 3
+  m_Direction: 2
   m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
@@ -4513,6 +4513,14 @@ Prefab:
       propertyPath: healthBarColor
       value: 
       objectReference: {fileID: 423091977}
+    - target: {fileID: 5064078, guid: 3370456d957585a4fbe9788ddb84e5e2, type: 2}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064078, guid: 3370456d957585a4fbe9788ddb84e5e2, type: 2}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3370456d957585a4fbe9788ddb84e5e2, type: 2}
   m_IsPrefabParent: 0

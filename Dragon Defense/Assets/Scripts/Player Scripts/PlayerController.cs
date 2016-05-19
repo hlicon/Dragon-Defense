@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour {
 	public Gradient healthColorGradient;
 	public Image healthBarColor;
 	private float healthPercent;
+    private float timer;
 
 	private GameObject damageText;
 
@@ -50,6 +51,7 @@ public class PlayerController : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D> ();
 		damageText = (GameObject)Resources.Load("Action Texts/DamageText");
 		paused = false;
+        timer = 0;
 	}
 
 	void FixedUpdate () {
@@ -67,10 +69,16 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update() {
+        timer += Time.deltaTime;
 
-		if(Input.GetKeyDown("p") && !roundWin)
+        if (Input.GetKeyDown("p") && !roundWin)
         {
             gsm.PauseGame();
+        }
+
+        if (roundWin)
+        {
+            VictoryAnimation();
         }
 	}
 
@@ -116,4 +124,15 @@ public class PlayerController : MonoBehaviour {
 		clone.GetComponent<Text>().enabled = true;
 
 	}
+
+    private void VictoryAnimation()
+    {
+        int animationInterval = 2;
+
+        if (timer > animationInterval)
+        {
+            rb.AddForce(new Vector2(0, 20000), ForceMode2D.Force);
+            timer = 0;
+        }
+    }
 }
