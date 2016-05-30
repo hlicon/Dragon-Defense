@@ -27,7 +27,7 @@ public class ScoreUpdate : MonoBehaviour {
 		get { return score; }
 	}
 	private static float gold; //debug
-	private static float Gold
+	public static float Gold
 	{
 		get { return gold; }
 	}
@@ -85,8 +85,18 @@ public class ScoreUpdate : MonoBehaviour {
         waveEnemiesKilled = 0;
     }
 
+	public bool BuyItem(int value){
+		bool canBuy = false;
+		if(value <= gold){
+			gold -= value;
+			canBuy = true;
+		}
+		goldText.text = "Hoard Worth: " + gold;
+		return canBuy;
+	}
+
 	public void SellItem(int value) {
-		OnSellItem();
+		OnSellItem(); //Loot manager needs this to check for size of list and adjust UI
 		gold += value;
 		goldText.text = "Hoard Worth: " + gold;
 	}

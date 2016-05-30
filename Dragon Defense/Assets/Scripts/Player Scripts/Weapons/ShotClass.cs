@@ -20,9 +20,13 @@ public class ShotClass : MonoBehaviour {
 	public float affectDamageMultiplier; //How much the affect damage is multiplied by, if any.
 	public float affectTimeMultiplier; //How much the affect time is multiplied by, if any.
 	public float affectHitRate;
+
 	protected Vector2 velocity;
 	protected Rigidbody2D rigbod;
 	protected float gravity;
+
+	[Header("Weapon Prefab Grabber")]
+	public ClickShoot clickShoot;
 
 	protected bool paused;
 	protected bool wasPaused;
@@ -71,7 +75,7 @@ public class ShotClass : MonoBehaviour {
 			OnDamage(tDamage, col.gameObject, weaponColorNumber, transform.position);
 		}
 		if (OnAffect != null){
-			float tAffectDamage = affectDamage * damageMultiplier;
+			float tAffectDamage = affectDamage * affectDamageMultiplier;
 			float tAffectTime = affectTime * affectTimeMultiplier;
 			OnAffect(col.gameObject, affectType, tAffectDamage, tAffectTime, affectHitRate);
 		}
@@ -134,5 +138,27 @@ public class ShotClass : MonoBehaviour {
 			rigbod.velocity = Vector2.zero;
 			rigbod.gravityScale = 0;
 		}
+	}
+
+	public void SetPrefabValues(){ //When something is upgraded, the prefab is changed
+		//So we need to set the current shot class values = the prefab's changes values
+		ShotClass prefabShotClass = this.GetComponent<ShotClass>();
+		ClickShoot shoot = clickShoot.GetComponent<ClickShoot>();
+		for(int i = 0; i < 10; i++){
+			if(name.Contains(clickShoot.Shots[i].name)){
+				prefabShotClass = shoot.Shots[i].GetComponent<ShotClass>();
+				break;
+			}
+		}
+		if(name.Contains("Stalag")){
+			prefabShotClass = shoot.Stalags.GetComponent<ShotClass>();
+		} else if (name.Contains("Lava")){
+			prefabShotClass = shoot.Lavas.GetComponent<ShotClass>();
+		}
+		affectDamageMultiplier = prefabShotClass.affectDamageMultiplier;
+		damageMultiplier = prefabShotClass.damageMultiplier;
+		amountToFire = prefabShotClass.amountToFire;
+		affectHitRate = prefabShotClass.affectHitRate;
+		affectTimeMultiplier = prefabShotClass.affectTimeMultiplier;
 	}
 }

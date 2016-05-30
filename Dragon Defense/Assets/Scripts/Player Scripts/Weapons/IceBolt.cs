@@ -17,7 +17,6 @@ public class IceBolt : ShotClass {
 			Physics2D.IgnoreLayerCollision(gameObject.layer, gameObject.layer);
 			//If can collide = false, we ignore the shot layer
 		}
-
 		rigbod = GetComponent<Rigidbody2D>();
 		velocity = rigbod.velocity;
 		gravity = rigbod.gravityScale;

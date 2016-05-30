@@ -175,10 +175,11 @@ MonoBehaviour:
   damage: 20
   damageMultiplier: 1
   affectDamage: 5
-  affectTime: 1
+  affectTime: 2
   affectDamageMultiplier: 1
-  affectTimeMultiplier: 2
-  affectHitRate: 1
+  affectTimeMultiplier: 1
+  affectHitRate: 0.5
+  clickShoot: {fileID: 11436436, guid: 3370456d957585a4fbe9788ddb84e5e2, type: 2}
   trailParticles: {fileID: 19853252}
   burstParticles: {fileID: 19831206}
   attackTimer: 0.75

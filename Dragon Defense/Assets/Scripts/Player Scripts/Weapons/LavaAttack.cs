@@ -60,9 +60,11 @@ public class LavaAttack : ShotClass {
 		Vector3 spawnRotation = new Vector3(0, 0, 90);
 		GameObject clone = (GameObject)Pooling.Spawn(lava, randSpawn, Quaternion.Euler(spawnRotation));
 		clone.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-		clone.GetComponent<LavaBolt>().moveTimer = 0;
-		clone.GetComponent<LavaBolt>().stopMove = false;
-		clone.GetComponent<LavaBolt>().justSpawned = true;
+		LavaBolt tempLavaBolt = clone.GetComponent<LavaBolt>();
+		tempLavaBolt.moveTimer = 0;
+		tempLavaBolt.stopMove = false;
+		tempLavaBolt.justSpawned = true;
+		clone.GetComponent<ShotClass>().SetPrefabValues();
 		attacked = false;
 		timeAlive = startTimeAlive;
 		Pooling.Despawn(gameObject);

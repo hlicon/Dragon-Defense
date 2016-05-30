@@ -7,7 +7,6 @@ public class LavaBolt : ShotClass
 	public float attackTimer;
 	private float startAttackTimer;
 
-	private bool moveBack;
 	public bool stopMove;
 	public float moveTimer;
 	public bool justSpawned;
@@ -22,7 +21,6 @@ public class LavaBolt : ShotClass
 		wasPaused = false;
 		paused = false;
 
-		moveBack = false;
 		stopMove = false;
 
 		if (canCollideWithShots != true) {

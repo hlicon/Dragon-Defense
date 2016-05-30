@@ -60,6 +60,7 @@ public class StompAttack : ShotClass {
 		randSpawn = new Vector2(Random.Range(-1, 13) + Random.value, Random.Range(8, 10) + Random.value);
 
 		GameObject clone = (GameObject)Pooling.Spawn(stalag, randSpawn, Quaternion.identity);
+		clone.GetComponent<ShotClass>().SetPrefabValues();
 		clone.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 		attacked = false;
 		timeAlive = startTimeAlive;

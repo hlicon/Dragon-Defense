@@ -149,6 +149,7 @@ MonoBehaviour:
   affectDamageMultiplier: 0
   affectTimeMultiplier: 0
   affectHitRate: 0
+  clickShoot: {fileID: 11436436, guid: 3370456d957585a4fbe9788ddb84e5e2, type: 2}
   trailParticles: {fileID: 19878716}
   burstParticles: {fileID: 19869920}
   stickTime: 30
